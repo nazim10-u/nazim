@@ -1,0 +1,17 @@
+{
+  "name": "medad-vscode-bridge",
+  "displayName": "Medad VS Code Bridge",
+  "description": "Send a project brief from Medad to Copilot Chat in your VS Code workspace.",
+  "version": "0.1.0",
+  "publisher": "medad",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onUri"
+  ],
+  "main": "./extension.js"
+}

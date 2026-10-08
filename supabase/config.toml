@@ -1,0 +1,2 @@
+[functions.medad-assistant]
+verify_jwt = true

@@ -1,0 +1,1501 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7f2">
+  <meta name="description" content="مِداد — مساحة عربية تجمع أدوات المطورين ومسارات التعلّم ومجتمعًا تقنيًا ملهمًا.">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="مِداد">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <title>مِداد — ابنِ فكرتك التالية</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17251f;
+      --muted: #748078;
+      --paper: #f6f7f2;
+      --white: #fff;
+      --line: #e8ebe4;
+      --green: #185b45;
+      --green-deep: #123e32;
+      --lime: #d8f36a;
+      --soft-green: #edf4e8;
+      --orange: #f3a477;
+      --shadow: 0 16px 45px rgba(30, 54, 40, .07);
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--paper); }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    .shell { width: min(1160px, calc(100% - 48px)); margin-inline: auto; }
+    .topbar { height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 23px; font-weight: 800; letter-spacing: -.8px; }
+    .brand-mark { width: 37px; height: 37px; display: grid; place-items: center; background: var(--green); color: var(--lime); border-radius: 12px; }
+    .brand-mark svg { width: 22px; height: 22px; }
+    .nav-links { display: flex; align-items: center; gap: 31px; color: #5d6961; font-size: 14px; }
+    .nav-links a { transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--green); }
+    .nav-actions { display: flex; align-items: center; gap: 19px; font-size: 14px; }
+    .login-link { border: 0; padding: 0; background: transparent; color: #5d6961; }
+    .button { display: inline-flex; justify-content: center; align-items: center; gap: 9px; border: 0; border-radius: 12px; padding: 12px 18px; background: var(--green); color: white; font-weight: 700; font-size: 14px; transition: transform .2s, background .2s; }
+    .button:hover { transform: translateY(-2px); background: #104934; }
+    .button svg { width: 17px; height: 17px; }
+    .button-light { color: var(--green-deep); background: white; }
+    .button-light:hover { background: #f2f6ed; }
+    .install-button { display: inline-flex; align-items: center; gap: 8px; padding: 9px 13px; border: 1px solid rgba(255,255,255,.35); border-radius: 11px; background: transparent; color: white; font-size: 13px; font-weight: 700; }
+    .install-button:hover { background: rgba(255,255,255,.12); }
+    .install-button svg { width: 17px; height: 17px; }
+    .install-button { display: inline-flex; align-items: center; gap: 8px; padding: 9px 13px; border: 1px solid rgba(255,255,255,.35); border-radius: 11px; background: transparent; color: white; font-size: 13px; font-weight: 700; }
+    .install-button:hover { background: rgba(255,255,255,.12); }
+    .install-button svg { width: 17px; height: 17px; }
+    .menu-toggle { display: none; border: 1px solid var(--line); border-radius: 10px; padding: 9px; background: white; color: var(--ink); }
+    .hero { position: relative; overflow: hidden; display: grid; grid-template-columns: 1.02fr .98fr; align-items: center; gap: 30px; min-height: 385px; padding: 48px 58px; border-radius: 25px; color: white; background: var(--green-deep); }
+    .hero::before, .hero::after { content: ""; position: absolute; border-radius: 50%; pointer-events: none; }
+    .hero::before { width: 410px; height: 410px; left: -90px; top: -200px; border: 1px solid rgba(216,243,106,.16); box-shadow: 0 0 0 36px rgba(216,243,106,.035), 0 0 0 72px rgba(216,243,106,.025); }
+    .hero::after { width: 210px; height: 210px; left: 32%; bottom: -165px; background: rgba(216,243,106,.08); }
+    .hero-copy, .hero-art { position: relative; z-index: 1; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--lime); font-size: 13px; font-weight: 700; }
+    .eyebrow-dot { width: 7px; height: 7px; border-radius: 99px; background: var(--lime); box-shadow: 0 0 12px var(--lime); }
+    h1 { max-width: 530px; margin: 18px 0 13px; font-size: clamp(34px, 4.3vw, 51px); line-height: 1.24; letter-spacing: -1.7px; }
+    h1 span { color: var(--lime); }
+    .hero-copy > p { max-width: 445px; margin: 0; color: #c4d4c9; font-size: 15px; line-height: 1.95; }
+    .hero-actions { display: flex; align-items: center; gap: 19px; margin-top: 27px; }
+    .text-link { display: inline-flex; align-items: center; gap: 7px; color: #e0e9df; font-size: 13px; }
+    .text-link svg { width: 16px; height: 16px; }
+    .hero-art { min-height: 265px; display: grid; place-items: center; }
+    .orbit { position: absolute; width: 280px; height: 280px; border-radius: 50%; border: 1px solid rgba(216,243,106,.22); transform: rotate(-22deg) scaleY(.52); }
+    .orbit.two { width: 355px; height: 355px; transform: rotate(31deg) scaleY(.52); border-color: rgba(216,243,106,.13); }
+    .orbit.three { width: 205px; height: 205px; transform: rotate(72deg) scaleY(.52); border-color: rgba(216,243,106,.12); }
+    .hero-orb { position: relative; width: 145px; height: 145px; display: grid; place-items: center; border-radius: 42px; background: linear-gradient(145deg, #dafa7d, #9ed49b); box-shadow: 0 22px 75px rgba(161,221,119,.24); transform: rotate(-8deg); }
+    .hero-orb svg { width: 79px; height: 79px; color: var(--green-deep); transform: rotate(8deg); }
+    .float-card { position: absolute; display: flex; align-items: center; gap: 10px; padding: 11px 14px; border: 1px solid rgba(255,255,255,.12); border-radius: 13px; background: rgba(255,255,255,.1); box-shadow: 0 8px 22px rgba(0,0,0,.1); backdrop-filter: blur(10px); color: #f6fbf5; font-size: 12px; }
+    .float-card strong { display: block; font-size: 13px; }
+    .float-icon { width: 31px; height: 31px; display: grid; place-items: center; border-radius: 9px; background: rgba(216,243,106,.16); color: var(--lime); font-size: 16px; }
+    .float-one { top: 18px; right: 3px; }
+    .float-two { bottom: 20px; left: 5px; }
+    .float-three { top: 30px; left: 9px; }
+    .section { padding-top: 53px; }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 22px; }
+    .section-heading h2 { margin: 0 0 7px; font-size: 24px; letter-spacing: -.6px; }
+    .section-heading p { margin: 0; color: var(--muted); font-size: 13px; }
+    .small-link { display: inline-flex; align-items: center; gap: 7px; color: var(--green); font-size: 13px; font-weight: 700; }
+    .small-link svg { width: 15px; height: 15px; }
+    .builder-card { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; padding: 27px; border: 1px solid var(--line); border-radius: 19px; background: white; box-shadow: var(--shadow); }
+    .builder-intro { align-self: center; }
+    .builder-badge { display: inline-flex; align-items: center; gap: 7px; padding: 7px 10px; border-radius: 999px; background: var(--soft-green); color: var(--green); font-size: 11px; font-weight: 700; }
+    .builder-intro h3 { margin: 13px 0 8px; font-size: 22px; }
+    .builder-intro p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.9; }
+    .builder-requirements { margin: 13px 0 0; padding: 0; list-style: none; color: #536158; font-size: 11px; line-height: 2.1; }
+    .builder-requirements li::before { margin-left: 8px; color: var(--green); content: "✓"; font-weight: 800; }
+    .builder-form { display: grid; align-content: center; gap: 10px; }
+    .builder-form label { font-size: 12px; font-weight: 700; }
+    .builder-form textarea { width: 100%; min-height: 116px; resize: vertical; padding: 13px; border: 1px solid #e1e7de; border-radius: 11px; outline: 0; background: #fbfcf9; color: var(--ink); font: inherit; font-size: 12px; line-height: 1.8; }
+    .builder-form textarea:focus { border-color: #7caa91; box-shadow: 0 0 0 3px rgba(24,91,69,.08); }
+    .builder-form textarea::placeholder { color: #9aa39b; }
+    .builder-actions { display: flex; flex-wrap: wrap; gap: 9px; }
+    .builder-actions .button { justify-self: start; }
+    .builder-actions .button-secondary { border: 1px solid #dfe7dd; background: white; color: var(--green-deep); }
+    .builder-actions .button-secondary:hover { background: var(--soft-green); }
+    .builder-mobile-help { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.8; }
+    .builder-status { min-height: 18px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.7; }
+    .builder-status.error { color: #a23d32; }
+    .builder-status.success { color: var(--green); }
+    .assistant-card { margin-top: 18px; padding: 24px; border: 1px solid var(--line); border-radius: 19px; background: white; box-shadow: var(--shadow); }
+    .assistant-heading { display: flex; align-items: start; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+    .assistant-heading h3 { margin: 0 0 6px; font-size: 19px; }
+    .assistant-heading p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.8; }
+    .assistant-clear { flex: 0 0 auto; border: 1px solid #e4e8df; border-radius: 9px; padding: 8px 11px; background: white; color: var(--green); font-size: 12px; }
+    .assistant-messages { display: grid; gap: 12px; max-height: 390px; overflow-y: auto; padding: 15px; border: 1px solid #edf0e9; border-radius: 13px; background: #fbfcf9; }
+    .assistant-message { width: fit-content; max-width: min(88%, 720px); padding: 12px 14px; border-radius: 13px; color: var(--ink); background: white; box-shadow: 0 2px 10px rgba(30,54,40,.05); font-size: 13px; line-height: 1.85; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .assistant-message.user { justify-self: start; background: var(--soft-green); }
+    .assistant-message.assistant { justify-self: end; }
+    .assistant-sources { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+    .assistant-sources a { color: var(--green); font-size: 11px; text-decoration: underline; text-underline-offset: 2px; }
+    .assistant-pending { color: var(--muted); font-size: 12px; }
+    .assistant-form { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 10px; margin-top: 12px; }
+    .assistant-form textarea { width: 100%; min-height: 72px; max-height: 180px; resize: vertical; padding: 12px; border: 1px solid #e1e7de; border-radius: 11px; outline: 0; background: #fbfcf9; color: var(--ink); font: inherit; font-size: 13px; line-height: 1.8; }
+    .assistant-form textarea:focus { border-color: #7caa91; box-shadow: 0 0 0 3px rgba(24,91,69,.08); }
+    .assistant-form button { min-height: 44px; }
+    .assistant-note { margin: 9px 0 0; color: var(--muted); font-size: 11px; line-height: 1.7; }
+    .assistant-note.error { color: #a23d32; }
+    .filter-row { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; margin-bottom: 19px; }
+    .filter-chip { padding: 9px 15px; border: 1px solid #e4e8df; border-radius: 999px; background: transparent; color: #69756d; font-size: 12px; transition: all .2s; }
+    .filter-chip:hover { border-color: #aabcae; }
+    .filter-chip.selected { border-color: var(--green); background: var(--green); color: white; }
+    .search-box { position: relative; margin-right: auto; }
+    .search-box svg { position: absolute; top: 50%; right: 13px; width: 16px; height: 16px; color: #89938a; transform: translateY(-50%); }
+    .search-box input { width: 225px; height: 37px; padding: 0 38px 0 13px; border: 1px solid #e4e8df; border-radius: 10px; outline: 0; background: white; font-size: 12px; }
+    .search-box input:focus { border-color: #7caa91; box-shadow: 0 0 0 3px rgba(24,91,69,.08); }
+    .tool-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+    .tool-card { min-height: 190px; padding: 19px; border: 1px solid var(--line); border-radius: 16px; background: var(--white); transition: transform .2s, box-shadow .2s, border-color .2s; }
+    .tool-card:hover { transform: translateY(-4px); border-color: #d4e3d5; box-shadow: var(--shadow); }
+    .tool-top { display: flex; justify-content: space-between; align-items: flex-start; }
+    .tool-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 13px; font-size: 20px; }
+    .tool-icon.mint { background: #e4f4e8; }
+    .tool-icon.peach { background: #fff0e6; }
+    .tool-icon.lilac { background: #efedff; }
+    .tool-icon.blue { background: #e6f2fb; }
+    .tool-arrow { display: grid; place-items: center; width: 29px; height: 29px; border: 1px solid var(--line); border-radius: 50%; color: #8c968e; }
+    .tool-arrow svg { width: 14px; height: 14px; }
+    .tool-card h3 { margin: 15px 0 6px; font-size: 15px; }
+    .tool-card p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+    .tool-tag { display: inline-block; margin-top: 13px; color: #78847b; font-size: 10px; }
+    .tool-card[hidden] { display: none; }
+    .empty-state { display: none; padding: 27px; border: 1px dashed #d9dfd6; border-radius: 14px; color: var(--muted); text-align: center; font-size: 13px; }
+    .learning-section { padding-bottom: 0; }
+    .learning-summary { display: grid; grid-template-columns: 1.1fr .9fr; gap: 17px; margin-bottom: 20px; }
+    .learning-progress, .xp-card { min-height: 150px; padding: 23px 25px; border: 1px solid var(--line); border-radius: 18px; background: white; }
+    .learning-summary h3 { margin: 0 0 7px; font-size: 18px; }
+    .learning-summary p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.8; }
+    .progress-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .level-pill { padding: 7px 11px; border-radius: 999px; background: var(--soft-green); color: var(--green); font-size: 11px; white-space: nowrap; }
+    .progress-track { height: 8px; margin-top: 18px; overflow: hidden; border-radius: 99px; background: #edf0e9; }
+    .progress-fill { width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #185b45, #8abe69); transition: width .35s ease; }
+    .progress-caption { display: flex; justify-content: space-between; gap: 12px; margin-top: 9px; color: var(--muted); font-size: 11px; }
+    .xp-card { display: flex; align-items: center; gap: 16px; background: #eaf1e7; }
+    .xp-icon { flex: 0 0 48px; height: 48px; display: grid; place-items: center; border-radius: 15px; background: white; font-size: 23px; }
+    .xp-total { display: block; margin-top: 4px; color: var(--green); font-size: 25px; font-weight: 800; }
+    .course-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+    .course-card { padding: 20px; border: 1px solid var(--line); border-radius: 17px; background: white; transition: transform .2s, box-shadow .2s; }
+    .course-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .course-top { display: flex; align-items: center; justify-content: space-between; }
+    .course-symbol { width: 43px; height: 43px; display: grid; place-items: center; border-radius: 13px; font-size: 17px; font-weight: 800; }
+    .course-symbol.html { color: #c4542c; background: #fff0e6; }
+    .course-symbol.js { color: #7c6510; background: #fbf3ce; }
+    .course-symbol.py { color: #326b9b; background: #e6f2fb; }
+    .course-level { color: var(--muted); font-size: 10px; }
+    .course-card h3 { margin: 15px 0 6px; font-size: 16px; }
+    .course-card p { min-height: 39px; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+    .course-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 16px; }
+    .course-lessons { color: var(--muted); font-size: 10px; }
+    .course-button { padding: 9px 12px; font-size: 11px; }
+    .community-card { position: relative; overflow: hidden; min-height: 195px; margin-bottom: 48px; padding: 25px; border: 1px solid var(--line); border-radius: 18px; background: #eaf1e7; }
+    .community-card::after { content: "</>"; position: absolute; left: 13px; bottom: -28px; color: rgba(24,91,69,.08); font-size: 115px; font-weight: 800; letter-spacing: -12px; }
+    .community-card > * { position: relative; z-index: 1; }
+    .community-icon { width: 39px; height: 39px; display: grid; place-items: center; border-radius: 12px; background: white; color: var(--green); font-size: 19px; }
+    .community-card h3 { margin: 9px 0 7px; font-size: 19px; }
+    .community-card p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.8; }
+    .community-card .button { margin-top: 18px; }
+    .lesson-modal { width: min(540px, 100%); max-height: min(760px, calc(100vh - 36px)); overflow: auto; }
+    .lesson-meta { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; color: var(--muted); font-size: 11px; }
+    .lesson-modal h3 { margin: 15px 0 8px; font-size: 21px; }
+    .intro-player { position: relative; overflow: hidden; min-height: 270px; margin-top: 16px; padding: 21px; border-radius: 16px; background: radial-gradient(ellipse at 73% 10%, #286b50 0, transparent 45%), linear-gradient(140deg, #10271f, #183e30 64%, #10271f); color: white; }
+    .intro-player::before, .intro-player::after { position: absolute; content: ""; border: 1px solid rgba(216,243,106,.13); border-radius: 50%; pointer-events: none; }
+    .intro-player::before { width: 250px; height: 250px; top: -165px; left: -70px; box-shadow: 0 0 0 25px rgba(216,243,106,.03), 0 0 0 50px rgba(216,243,106,.025); }
+    .intro-player::after { width: 190px; height: 190px; right: -110px; bottom: -125px; }
+    .intro-topline, .intro-scene, .intro-controls, .intro-progress-track { position: relative; z-index: 1; }
+    .intro-topline { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: #d1e2d4; font-size: 10px; }
+    .intro-live { display: inline-flex; align-items: center; gap: 6px; }
+    .intro-live::before { width: 6px; height: 6px; border-radius: 50%; background: var(--lime); content: ""; }
+    .intro-duration { color: #b7cbbd; }
+    .intro-scene { min-height: 157px; display: grid; grid-template-columns: 1fr .9fr; align-items: center; gap: 12px; }
+    .intro-copy { position: relative; z-index: 1; }
+    .intro-kicker { margin: 0 0 8px; color: var(--lime); font-size: 10px; font-weight: 700; }
+    .intro-headline { margin: 0; color: white; font-size: clamp(17px, 4vw, 22px); line-height: 1.45; }
+    .intro-caption { min-height: 38px; margin: 7px 0 0; color: #d0dfd4; font-size: 11px; line-height: 1.75; }
+    .intro-visual { position: relative; min-height: 116px; display: grid; place-items: center; }
+    .intro-code { position: relative; z-index: 1; width: 100%; padding: 14px 12px; border: 1px solid rgba(255,255,255,.13); border-radius: 12px; background: rgba(9,22,17,.68); color: var(--lime); direction: ltr; font: 11px/1.8 Consolas, monospace; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,.17); }
+    .intro-code-label { display: block; margin-bottom: 5px; color: #92aa99; font: 9px "Segoe UI", Tahoma, sans-serif; }
+    .intro-player.playing .intro-visual { animation: intro-float 3s ease-in-out infinite alternate; }
+    .intro-player.playing .intro-code { animation: intro-glow 2s ease-in-out infinite alternate; }
+    .intro-player.playing .intro-headline { animation: intro-arrive .45s ease both; }
+    .intro-controls { display: flex; align-items: center; gap: 8px; }
+    .intro-control { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 32px; padding: 7px 11px; border: 1px solid rgba(255,255,255,.2); border-radius: 9px; background: rgba(255,255,255,.08); color: white; font-size: 10px; }
+    .intro-control:hover:not(:disabled) { background: rgba(255,255,255,.15); }
+    .intro-control:disabled { opacity: .45; cursor: not-allowed; }
+    .intro-control.primary { border-color: var(--lime); background: var(--lime); color: var(--green-deep); font-weight: 700; }
+    .intro-spacer { flex: 1; }
+    .intro-progress-track { height: 3px; margin-top: 12px; overflow: hidden; border-radius: 99px; background: rgba(255,255,255,.16); }
+    .intro-progress-fill { width: 0; height: 100%; background: var(--lime); }
+    .intro-player.playing .intro-progress-fill { transition: width .15s linear; }
+    .lesson-content { margin-top: 18px; }
+    .lesson-content[hidden] { display: none; }
+    .intro-replay { margin-bottom: 13px; padding: 0; border: 0; background: transparent; color: var(--green); font-size: 11px; font-weight: 700; }
+    .lesson-body { color: #5e6a61; font-size: 13px; line-height: 1.9; }
+    .lesson-body p { margin: 0 0 10px; }
+    .lesson-body p:last-child { margin-bottom: 0; }
+    .lesson-code { margin: 15px 0; padding: 15px; overflow-x: auto; direction: ltr; border-radius: 12px; background: #17251f; color: #d8f36a; font: 13px/1.8 Consolas, monospace; text-align: left; }
+    .lesson-output { margin-top: -7px; padding: 11px 13px; border: 1px solid #e8ebe4; border-radius: 10px; background: #f8faf6; color: #526056; font-size: 12px; }
+    .lesson-output strong { display: block; margin-bottom: 3px; color: var(--green); font-size: 11px; }
+    .lesson-tip { margin: 12px 0 0; padding: 11px 13px; border-radius: 10px; background: #fbf5df; color: #665b2b; font-size: 12px; line-height: 1.8; }
+    .quiz-question { margin: 19px 0 10px; font-size: 13px; font-weight: 700; }
+    .quiz-options { display: grid; gap: 8px; }
+    .quiz-option { padding: 11px 13px; border: 1px solid #e5e9e2; border-radius: 10px; background: white; color: #46534a; text-align: right; font-size: 12px; }
+    .quiz-option:hover:not(:disabled) { border-color: #8eb59a; background: #f8fbf5; }
+    .quiz-option.correct { border-color: #69a87b; background: #edf7ed; color: #185b45; }
+    .quiz-option.incorrect { border-color: #e3a39a; background: #fff2ef; color: #a23d32; }
+    .lesson-feedback { min-height: 22px; margin-top: 10px; color: var(--muted); font-size: 12px; }
+    .lesson-feedback.success { color: var(--green); font-weight: 700; }
+    .lesson-feedback.error { color: #a23d32; }
+    .lesson-next { width: 100%; margin-top: 10px; }
+    @keyframes intro-float { from { transform: translateY(3px); } to { transform: translateY(-5px); } }
+    @keyframes intro-glow { from { box-shadow: 0 10px 30px rgba(0,0,0,.17); } to { box-shadow: 0 10px 34px rgba(216,243,106,.12); } }
+    @keyframes intro-arrive { from { opacity: .35; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    footer { border-top: 1px solid var(--line); padding: 21px 0; color: #879188; font-size: 11px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 15px; }
+    .toast { position: fixed; z-index: 5; bottom: 23px; left: 50%; padding: 13px 19px; border-radius: 12px; background: #17251f; color: white; font-size: 13px; box-shadow: 0 10px 30px rgba(0,0,0,.18); opacity: 0; pointer-events: none; transform: translate(-50%, 12px); transition: .25s; }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+    .modal-backdrop { position: fixed; z-index: 10; inset: 0; display: none; place-items: center; padding: 20px; background: rgba(15,30,23,.55); backdrop-filter: blur(5px); }
+    .modal-backdrop.open { display: grid; }
+    .modal { width: min(430px, 100%); padding: 27px; border-radius: 20px; background: white; box-shadow: 0 25px 80px rgba(0,0,0,.2); }
+    .auth-modal { width: min(430px, 100%); max-height: calc(100vh - 40px); overflow-y: auto; }
+    .auth-modal form { display: grid; gap: 10px; }
+    .auth-modal [hidden] { display: none; }
+    .auth-modal input { margin-bottom: 4px; }
+    .auth-actions { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; margin-top: 13px; }
+    .auth-secondary { border: 0; padding: 4px 0; background: transparent; color: var(--green); font-size: 12px; font-weight: 700; }
+    .auth-status { min-height: 20px; margin: 13px 0 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+    .auth-status.error { color: #a23d32; }
+    .auth-status.success { color: var(--green); }
+    .auth-account { padding-top: 12px; }
+    .auth-account p { color: var(--muted); font-size: 13px; }
+    .modal-top { display: flex; justify-content: space-between; align-items: center; }
+    .modal h2 { margin: 0; font-size: 21px; }
+    .close-modal { width: 34px; height: 34px; border: 0; border-radius: 50%; background: #f1f3ef; color: var(--ink); font-size: 20px; }
+    .modal > p { margin: 10px 0 20px; color: var(--muted); font-size: 13px; line-height: 1.7; }
+    .field-label { display: block; margin: 15px 0 7px; font-size: 12px; font-weight: 700; }
+    .modal input { width: 100%; padding: 12px; border: 1px solid #e3e8e0; border-radius: 10px; outline: 0; }
+    .modal input:focus { border-color: #7caa91; }
+    .type-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .type-option { padding: 12px 6px; border: 1px solid #e5e9e2; border-radius: 10px; background: white; color: #57635a; font-size: 12px; }
+    .type-option.selected { border-color: var(--green); background: var(--soft-green); color: var(--green); }
+    .modal-submit { width: 100%; margin-top: 20px; }
+    @media (max-width: 900px) {
+      .nav-links { gap: 17px; }
+      .hero { padding: 40px; }
+      .tool-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 650px) {
+      .shell { width: min(100% - 32px, 500px); }
+      .topbar { height: 68px; }
+      .menu-toggle { display: grid; place-items: center; }
+      .nav-links { position: absolute; z-index: 4; top: 62px; right: 16px; left: 16px; display: none; flex-direction: column; align-items: stretch; gap: 0; padding: 8px; border: 1px solid var(--line); border-radius: 14px; background: white; box-shadow: var(--shadow); }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 12px; }
+      .nav-actions { gap: 11px; }
+      .login-link { display: none; }
+      .nav-actions .button { padding: 10px 13px; font-size: 12px; }
+      .brand { font-size: 20px; }
+      .brand-mark { width: 34px; height: 34px; }
+      .hero { display: block; min-height: auto; padding: 34px 25px 25px; }
+      h1 { font-size: 37px; }
+      .hero-art { min-height: 230px; margin-top: 10px; }
+      .hero-orb { width: 112px; height: 112px; border-radius: 34px; }
+      .hero-orb svg { width: 62px; height: 62px; }
+      .orbit { width: 230px; height: 230px; }
+      .orbit.two { width: 290px; height: 290px; }
+      .orbit.three { width: 175px; height: 175px; }
+      .float-one { top: 9px; right: 0; }
+      .float-two { bottom: 5px; left: 0; }
+      .float-three { top: 15px; left: 0; }
+      .section { padding-top: 39px; }
+      .section-heading { align-items: start; }
+      .section-heading h2 { font-size: 21px; }
+      .filter-row { gap: 7px; }
+      .filter-chip { padding: 8px 11px; }
+      .search-box { flex: 1 0 100%; margin: 5px 0 0; }
+      .search-box input { width: 100%; }
+      .tool-grid { gap: 10px; }
+      .tool-card { min-height: 190px; padding: 15px; }
+      .tool-card h3 { font-size: 14px; }
+      .learning-summary { grid-template-columns: 1fr; }
+      .course-grid { grid-template-columns: 1fr; }
+      .course-card { padding: 17px; }
+      .learning-progress, .xp-card { padding: 20px; }
+      .builder-card { grid-template-columns: 1fr; gap: 18px; padding: 21px; }
+      .builder-intro h3 { font-size: 20px; }
+      .builder-actions { display: grid; grid-template-columns: 1fr; }
+      .builder-actions .button { width: 100%; }
+      .assistant-card { padding: 17px; }
+      .assistant-form { grid-template-columns: 1fr; }
+      .assistant-form button { width: 100%; }
+      .assistant-message { max-width: 96%; }
+      .community-card { margin-bottom: 36px; padding: 21px; }
+      .footer-inner { flex-direction: column; }
+    }
+    @media (max-width: 420px) {
+      .hero-actions { align-items: stretch; flex-direction: column; gap: 13px; }
+      .hero-actions > * { justify-content: center; }
+      .hero-actions .text-link { align-self: center; }
+      .section-heading { flex-wrap: wrap; }
+      .builder-card { padding: 17px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+      .intro-player.playing .intro-visual, .intro-player.playing .intro-code, .intro-player.playing .intro-headline { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell topbar">
+    <a class="brand" href="#" aria-label="مِداد، الصفحة الرئيسية">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 18.5 17.8 5.7a2.1 2.1 0 0 1 3 3L8 21.5H5v-3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="m14.7 8.8 3 3" stroke="currentColor" stroke-width="2"/></svg>
+      </span>
+      مِداد
+    </a>
+    <nav class="nav-links" id="main-nav" aria-label="القائمة الرئيسية">
+      <a class="active" href="#home">الرئيسية</a>
+      <a href="#tools">الأدوات</a>
+      <a href="#builder">مساعد الأكواد</a>
+      <a href="#learning">مسارات التعلّم</a>
+      <a href="#community">المجتمع</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="login-link" type="button" data-open-auth data-auth-mode="login">تسجيل الدخول</button>
+      <button class="button" data-open-auth data-auth-mode="signup">ابدأ مجانًا</button>
+      <button class="menu-toggle" aria-label="فتح القائمة" aria-expanded="false" aria-controls="main-nav">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> مساحتك لبناء أشياء عظيمة</div>
+        <h1>فكرتك تستحق أن <span>تُبنى.</span></h1>
+        <p>كل ما تحتاجه لتطوير البرامج والألعاب والمواقع — أدوات عملية، مسارات واضحة، ومجتمع يشاركك الشغف.</p>
+        <div class="hero-actions">
+          <button class="button button-light" data-open-modal>ابدأ مشروعك الآن <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <a class="text-link" href="#tools">اكتشف الأدوات <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <button class="install-button" id="install-app" type="button"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 16v4h14v-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>ثبّت التطبيق</button>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="orbit"></div><div class="orbit two"></div><div class="orbit three"></div>
+        <div class="hero-orb">
+          <svg viewBox="0 0 80 80" fill="none"><path d="m27 26-14 14 14 14M53 26l14 14-14 14M46 19 34 61" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="float-card float-one"><span class="float-icon">✦</span><span><strong>أفكارك أولًا</strong>ابدأ من هنا</span></div>
+        <div class="float-card float-two"><span class="float-icon">⌘</span><span><strong>أدوات ذكية</strong>وفّر وقتك</span></div>
+        <div class="float-card float-three"><span class="float-icon">↗</span><span><strong>تعلّم مستمر</strong>خطوة بخطوة</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="builder">
+      <div class="section-heading">
+        <div><h2>من فكرتك إلى الكود</h2><p>اسأل المساعد الذكي، أو تابع العمل في VS Code، أو شارك وصفك مع أداة برمجة على الجوال.</p></div>
+        <span class="builder-badge">✦ أدوات المطورين</span>
+      </div>
+      <div class="builder-card">
+        <div class="builder-intro">
+          <span class="builder-badge">أدوات المطورين</span>
+          <h3>صِف فكرتك ثم تابعها بالأداة المناسبة</h3>
+          <p>أرسل وصف مشروعك إلى مساحة العمل التي تختارها في VS Code، أو شاركه مع أداة برمجة على هاتفك. راجع دائمًا النتائج قبل اعتمادها.</p>
+          <ul class="builder-requirements">
+            <li>يمكنك المتابعة على الكمبيوتر أو الجوال</li>
+            <li>اختر الأداة التي تناسب مشروعك</li>
+            <li>مجلد مشروع مفتوح لمراجعة التغييرات</li>
+          </ul>
+        </div>
+        <form class="builder-form" id="builder-form">
+          <label for="build-request">ما الذي تريد بناءه؟</label>
+          <textarea id="build-request" maxlength="1200" required placeholder="مثال: أنشئ صفحة هبوط عربية لمقهى، فيها قائمة مشروبات وأوقات العمل وزر للتواصل."></textarea>
+          <div class="builder-actions">
+            <button class="button" type="submit">تابع إلى VS Code <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="button button-secondary" id="share-build-request" type="button">شارك مع أداة برمجة</button>
+            <button class="button button-secondary" id="copy-build-request" type="button">انسخ لـTermux</button>
+            <button class="button button-secondary" id="download-build-request" type="button">نزّل ملفًا لـAcode</button>
+          </div>
+          <p class="builder-mobile-help">على Android: اختر Acode من قائمة المشاركة، أو انسخ الطلب والصقه في Termux. يعمل خيار المشاركة مع أي تطبيق يظهر في قائمة المشاركة ويدعم استقبال النص أو الملفات.</p>
+          <p class="builder-status" id="builder-status" role="status" aria-live="polite">لن يكتب الموقع إلى ملفاتك بنفسه؛ Copilot يعرض التغييرات لتراجعها في VS Code.</p>
+        </form>
+      </div>
+      <section class="assistant-card" id="medad-assistant" aria-labelledby="assistant-title">
+        <div class="assistant-heading">
+          <div><h3 id="assistant-title">مساعد مِداد الذكي</h3><p>اسأله عن البرمجة، وسيبحث في الويب عند الحاجة ويعرض مصادره. يحتفظ بسياق هذه المحادثة في الصفحة الحالية فقط، ولا يتعلّم دائمًا من محادثات المستخدمين.</p></div>
+          <button class="assistant-clear" id="assistant-clear" type="button">محادثة جديدة</button>
+        </div>
+        <div class="assistant-messages" id="assistant-messages" role="log" aria-live="polite" aria-relevant="additions text">
+          <div class="assistant-message assistant">مرحبًا! اكتب سؤالك البرمجي، وسأبحث عن معلومات حديثة عندما يفيد ذلك، مع إرفاق المصادر المتاحة.</div>
+        </div>
+        <form class="assistant-form" id="assistant-form">
+          <label class="sr-only" for="assistant-input">اكتب سؤالك للمساعد الذكي</label>
+          <textarea id="assistant-input" maxlength="4000" required placeholder="اسأل عن كود، خطأ، مكتبة، أو معلومة تقنية..."></textarea>
+          <button class="button" id="assistant-send" type="submit">أرسل السؤال</button>
+        </form>
+        <p class="assistant-note" id="assistant-status" role="status" aria-live="polite">يتطلب حسابًا مسجّلًا وإعداد وظيفة Supabase ومفتاح Gemini في الخادم. تُرسل رسائلك إلى Google لتوليد الرد؛ لا ترسل كلمات مرور أو أسرارًا.</p>
+      </section>
+    </section>
+
+    <section class="section" id="tools">
+      <div class="section-heading">
+        <div><h2>أدوات في خدمتك</h2><p>مجموعة مختارة تساعدك من أول سطر إلى آخر تفصيلة.</p></div>
+        <a class="small-link" href="#tools" data-toast="نعمل على إضافة المزيد من الأدوات">عرض الكل <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="filter-row" role="group" aria-label="تصفية الأدوات">
+        <button class="filter-chip selected" data-filter="all" aria-pressed="true">كل الأدوات</button>
+        <button class="filter-chip" data-filter="web" aria-pressed="false">تطوير الويب</button>
+        <button class="filter-chip" data-filter="game" aria-pressed="false">تطوير الألعاب</button>
+        <button class="filter-chip" data-filter="software" aria-pressed="false">البرامج</button>
+        <label class="search-box">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <input type="search" id="tool-search" placeholder="ابحث عن أداة..." aria-label="ابحث عن أداة">
+        </label>
+      </div>
+      <div class="tool-grid" id="tool-grid">
+        <a href="#tools" class="tool-card" data-category="web" data-search="مولد واجهات تصميم موقع ويب ui">
+          <div class="tool-top"><span class="tool-icon mint">✳</span><span class="tool-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          <h3>مولّد واجهات الويب</h3><p>حوّل أفكارك إلى تخطيطات أنيقة لمواقعك وتطبيقاتك.</p><span class="tool-tag">تصميم وتجربة المستخدم</span>
+        </a>
+        <a href="#tools" class="tool-card" data-category="game" data-search="مخطط لعبة game design وثيقة تصميم">
+          <div class="tool-top"><span class="tool-icon peach">◈</span><span class="tool-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          <h3>مخطّط الألعاب</h3><p>رتّب الشخصيات والمراحل وآليات اللعب في مكان واحد.</p><span class="tool-tag">تصميم الألعاب</span>
+        </a>
+        <a href="#tools" class="tool-card" data-category="software" data-search="منظم مهام مشروع تطبيق برنامج">
+          <div class="tool-top"><span class="tool-icon lilac">▤</span><span class="tool-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          <h3>منظّم المشاريع</h3><p>قسّم مشروعك إلى مهام واضحة وتابع تقدّمك بسهولة.</p><span class="tool-tag">إدارة المشاريع</span>
+        </a>
+        <a href="#tools" class="tool-card" data-category="web" data-search="مختبر الألوان color palette هوية بصرية">
+          <div class="tool-top"><span class="tool-icon blue">◉</span><span class="tool-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          <h3>مختبر الألوان</h3><p>أنشئ لوحات ألوان متناسقة تناسب هوية مشروعك.</p><span class="tool-tag">تصميم وتجربة المستخدم</span>
+        </a>
+        <a href="#tools" class="tool-card" data-category="game" data-search="مولد أفكار ألعاب شخصيات قصص game">
+          <div class="tool-top"><span class="tool-icon lilac">✧</span><span class="tool-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          <h3>مولّد أفكار الألعاب</h3><p>اكسر حاجز البداية مع أفكار للعوالم والشخصيات.</p><span class="tool-tag">إلهام إبداعي</span>
+        </a>
+        <a href="#tools" class="tool-card" data-category="software" data-search="مساعد كتابة توثيق كود documentation">
+          <div class="tool-top"><span class="tool-icon mint">⌘</span><span class="tool-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          <h3>مساعد التوثيق</h3><p>اكتب توثيقًا مرتبًا يسهل على فريقك فهم مشروعك.</p><span class="tool-tag">تطوير البرمجيات</span>
+        </a>
+        <a href="#tools" class="tool-card" data-category="web" data-search="فاحص ألوان وصول accessibility تباين">
+          <div class="tool-top"><span class="tool-icon peach">◐</span><span class="tool-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          <h3>فاحص التباين</h3><p>تأكد أن ألوان موقعك مريحة وواضحة للجميع.</p><span class="tool-tag">إمكانية الوصول</span>
+        </a>
+        <a href="#tools" class="tool-card" data-category="software" data-search="قائمة مراجعة إطلاق نشر deploy release">
+          <div class="tool-top"><span class="tool-icon blue">✓</span><span class="tool-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          <h3>قائمة ما قبل الإطلاق</h3><p>لا تنسَ أي تفصيلة قبل نشر منتجك للعالم.</p><span class="tool-tag">جودة وإطلاق</span>
+        </a>
+      </div>
+      <div class="empty-state" id="empty-state">لم نعثر على أدوات تطابق بحثك. جرّب كلمة أخرى.</div>
+    </section>
+
+    <section class="section learning-section" id="learning">
+      <div class="section-heading">
+        <div><h2>تعلّم البرمجة… والعبها! 🎮</h2><p>دروس قصيرة وتحدّيات ممتعة — أتمم الدرس واجمع نقاطك وشاراتك.</p></div>
+        <span class="level-pill">تعلّم على راحتك</span>
+      </div>
+      <div class="learning-summary">
+        <article class="learning-progress">
+          <div class="progress-top"><div><h3>رحلة تعلّمك</h3><p>كل درس تنجزه يقرّبك من بناء مشروعك الأول.</p></div><span class="level-pill" id="lessons-count">٠ / ٩ دروس</span></div>
+          <div class="progress-track" role="progressbar" aria-label="التقدم في الدروس" aria-valuemin="0" aria-valuemax="9" aria-valuenow="0"><div class="progress-fill" id="learning-progress-fill"></div></div>
+          <div class="progress-caption"><span id="progress-message">اختر لغة وابدأ أول درس!</span><span id="badge-count">🏅 ٠ شارات</span></div>
+        </article>
+        <article class="xp-card"><span class="xp-icon">⚡</span><div><p>رصيد نقاطك</p><strong class="xp-total" id="xp-total">٠ XP</strong><p>+٢٠ نقطة مع كل درس مكتمل</p></div></article>
+      </div>
+      <div class="course-grid">
+        <article class="course-card" data-course-card="html">
+          <div class="course-top"><span class="course-symbol html">5</span><span class="course-level">مناسب للمبتدئين</span></div>
+          <h3>HTML — هيكل صفحات الويب</h3><p>تعرّف على الوسوم وابنِ أول صفحة ويب لك.</p>
+          <div class="course-meta"><span class="course-lessons" data-course-progress="html">٣ دروس · جوائز بانتظارك</span><button class="button course-button" data-start-course="html">ابدأ التعلّم</button></div>
+        </article>
+        <article class="course-card" data-course-card="javascript">
+          <div class="course-top"><span class="course-symbol js">JS</span><span class="course-level">مناسب للمبتدئين</span></div>
+          <h3>JavaScript — أضف التفاعل</h3><p>اجعل صفحاتك تفاعلية وتعلّم أساسيات البرمجة.</p>
+          <div class="course-meta"><span class="course-lessons" data-course-progress="javascript">٣ دروس · جوائز بانتظارك</span><button class="button course-button" data-start-course="javascript">ابدأ التعلّم</button></div>
+        </article>
+        <article class="course-card" data-course-card="python">
+          <div class="course-top"><span class="course-symbol py">Py</span><span class="course-level">مناسب للمبتدئين</span></div>
+          <h3>Python — برمج أول برنامج</h3><p>ابدأ بلغة سهلة وتعلّم المتغيرات والطباعة.</p>
+          <div class="course-meta"><span class="course-lessons" data-course-progress="python">٣ دروس · جوائز بانتظارك</span><button class="button course-button" data-start-course="python">ابدأ التعلّم</button></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="community">
+      <article class="community-card">
+        <div class="community-icon">✦</div>
+        <h3>لا تبنِ وحدك</h3>
+        <p>شارك أفكارك، اسأل مطورين مثلك، واحتفل بكل خطوة صغيرة.</p>
+        <button class="button" data-toast="قريبًا: مساحة المجتمع">اكتشف المجتمع <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </article>
+    </section>
+  </main>
+
+  <footer><div class="shell footer-inner"><span>© ٢٠٢6 مِداد. صُنع للمبدعين العرب.</span><span>خطوة صغيرة اليوم، مشروع عظيم غدًا.</span></div></footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="modal-backdrop" id="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <form class="modal" id="project-form">
+      <div class="modal-top"><h2 id="modal-title">لنبدأ مشروعك</h2><button class="close-modal" type="button" aria-label="إغلاق">×</button></div>
+      <p>سمّ فكرتك واختر نوعها، وسنساعدك على ترتيب أولى خطواتك.</p>
+      <label class="field-label" for="project-name">ما اسم مشروعك؟</label>
+      <input id="project-name" name="project" placeholder="مثال: متجري الإلكتروني" required maxlength="60">
+      <span class="field-label">ما الذي تريد بناءه؟</span>
+      <div class="type-options" role="group" aria-label="نوع المشروع">
+        <button type="button" class="type-option selected" data-type="موقع">🌐 موقع</button>
+        <button type="button" class="type-option" data-type="لعبة">🎮 لعبة</button>
+        <button type="button" class="type-option" data-type="برنامج">💻 برنامج</button>
+      </div>
+      <button class="button modal-submit" type="submit">أنشئ مساحة مشروعي <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </form>
+  </div>
+  <div class="modal-backdrop" id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+    <section class="modal auth-modal">
+      <div class="modal-top"><h2 id="auth-title">تسجيل الدخول</h2><button class="close-modal" id="close-auth" type="button" aria-label="إغلاق">×</button></div>
+      <p id="auth-description">أدخل بريدك الإلكتروني وكلمة المرور للمتابعة.</p>
+      <div id="auth-guest">
+        <form id="auth-form">
+          <label class="field-label" for="auth-email">البريد الإلكتروني</label>
+          <input id="auth-email" type="email" autocomplete="email" required maxlength="254" placeholder="name@example.com">
+          <label class="field-label" for="auth-password">كلمة المرور</label>
+          <input id="auth-password" type="password" autocomplete="current-password" required minlength="6" maxlength="72" placeholder="٦ أحرف على الأقل">
+          <button class="button modal-submit" id="auth-submit" type="submit">تسجيل الدخول</button>
+        </form>
+        <form id="recovery-form" hidden>
+          <label class="field-label" for="new-password">كلمة المرور الجديدة</label>
+          <input id="new-password" type="password" autocomplete="new-password" required minlength="6" maxlength="72" placeholder="٦ أحرف على الأقل">
+          <button class="button modal-submit" type="submit">حفظ كلمة المرور</button>
+        </form>
+        <div class="auth-actions" id="auth-actions">
+          <button class="auth-secondary" id="auth-mode-toggle" type="button">إنشاء حساب جديد</button>
+          <button class="auth-secondary" id="forgot-password" type="button">نسيت كلمة المرور؟</button>
+        </div>
+      </div>
+      <div class="auth-account" id="auth-account" hidden>
+        <p>تم تسجيل الدخول باستخدام <strong id="auth-user-email"></strong></p>
+        <button class="button" id="sign-out" type="button">تسجيل الخروج</button>
+      </div>
+      <p class="auth-status" id="auth-status" role="status" aria-live="polite"></p>
+    </section>
+  </div>
+  <div class="modal-backdrop" id="lesson-modal" role="dialog" aria-modal="true" aria-labelledby="lesson-title">
+    <article class="modal lesson-modal">
+      <div class="modal-top"><span class="level-pill" id="lesson-course-label">درس برمجة</span><button class="close-modal" id="close-lesson" type="button" aria-label="إغلاق الدرس">×</button></div>
+      <div class="lesson-meta"><span id="lesson-number"></span><span>⚡ +٢٠ XP عند الإجابة الصحيحة</span></div>
+      <h3 id="lesson-title"></h3>
+      <section class="intro-player" id="intro-player" aria-label="مقدمة مرئية للدرس">
+        <div class="intro-topline"><span class="intro-live">مقدمة الدرس</span><span class="intro-duration" id="intro-time">٠٠:١٨</span></div>
+        <div class="intro-scene" aria-live="polite">
+          <div class="intro-copy"><p class="intro-kicker" id="intro-kicker">مِداد · تعلّم خطوة بخطوة</p><h4 class="intro-headline" id="intro-headline"></h4><p class="intro-caption" id="intro-caption"></p></div>
+          <div class="intro-visual" aria-hidden="true"><pre class="intro-code"><span class="intro-code-label">درس اليوم · مثال</span><code id="intro-code"></code></pre></div>
+        </div>
+        <div class="intro-controls"><button class="intro-control primary" id="intro-play" type="button">▶ شاهد المقدّمة</button><button class="intro-control" id="intro-voice" type="button" aria-pressed="false">🔊 استمع</button><span class="intro-spacer"></span><button class="intro-control" id="intro-skip" type="button">تخطّ المقدّمة</button></div>
+        <div class="intro-progress-track" aria-hidden="true"><div class="intro-progress-fill" id="intro-progress-fill"></div></div>
+      </section>
+      <div class="lesson-content" id="lesson-content" hidden>
+        <button class="intro-replay" id="replay-intro" type="button">▶ شاهد مقدّمة الدرس مرة أخرى</button>
+        <div class="lesson-body" id="lesson-body"></div>
+        <pre class="lesson-code" id="lesson-code"></pre>
+        <div class="lesson-output" id="lesson-output"><strong>ماذا سيحدث؟</strong><span id="lesson-output-text"></span></div>
+        <p class="lesson-tip" id="lesson-tip"></p>
+        <p class="quiz-question" id="quiz-question"></p>
+        <div class="quiz-options" id="quiz-options"></div>
+        <div class="lesson-feedback" id="lesson-feedback" role="status" aria-live="polite"></div>
+        <button class="button lesson-next" id="lesson-next" hidden></button>
+      </div>
+    </article>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = "https://iinymsdcxkviigpvcurj.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_sN6tKiMytU1GVsPLcw2h-Q_KIY8LVzA";
+    const supabaseConfigured = SUPABASE_URL.startsWith("https://") &&
+      !SUPABASE_URL.includes("YOUR_") &&
+      SUPABASE_ANON_KEY.length > 20 &&
+      !SUPABASE_ANON_KEY.includes("YOUR_");
+    const supabaseClient = supabaseConfigured && window.supabase
+      ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+      : null;
+
+    const chips = [...document.querySelectorAll(".filter-chip")];
+    const cards = [...document.querySelectorAll(".tool-card")];
+    const search = document.querySelector("#tool-search");
+    const emptyState = document.querySelector("#empty-state");
+    let activeFilter = "all";
+
+    function filterTools() {
+      const query = search.value.trim().toLocaleLowerCase("ar");
+      let visible = 0;
+      cards.forEach(card => {
+        const matchesCategory = activeFilter === "all" || card.dataset.category === activeFilter;
+        const matchesQuery = !query || card.dataset.search.toLocaleLowerCase("ar").includes(query) || card.textContent.toLocaleLowerCase("ar").includes(query);
+        card.hidden = !(matchesCategory && matchesQuery);
+        if (!card.hidden) visible++;
+      });
+      emptyState.style.display = visible ? "none" : "block";
+    }
+
+    chips.forEach(chip => chip.addEventListener("click", () => {
+      chips.forEach(item => {
+        const selected = item === chip;
+        item.classList.toggle("selected", selected);
+        item.setAttribute("aria-pressed", String(selected));
+      });
+      activeFilter = chip.dataset.filter;
+      filterTools();
+    }));
+    search.addEventListener("input", filterTools);
+
+    const builderForm = document.querySelector("#builder-form");
+    const buildRequest = document.querySelector("#build-request");
+    const builderStatus = document.querySelector("#builder-status");
+    builderForm.addEventListener("submit", event => {
+      event.preventDefault();
+      const request = buildRequest.value.trim();
+      if (!request) {
+        buildRequest.focus();
+        builderStatus.textContent = "اكتب وصفًا قصيرًا لما تريد بناءه أولًا.";
+        builderStatus.className = "builder-status error";
+        return;
+      }
+      const uri = new URL("vscode://medad.medad-vscode-bridge/build");
+      uri.searchParams.set("request", request);
+      builderStatus.textContent = "جارٍ فتح VS Code… وافق على فتح التطبيق إذا طلب المتصفح ذلك.";
+      builderStatus.className = "builder-status success";
+      window.location.href = uri.toString();
+      window.setTimeout(() => {
+        builderStatus.textContent = "إذا لم يفتح VS Code، شغّل إضافة مِداد في نافذة VS Code Development Host، ثم جرّب مجددًا.";
+        builderStatus.className = "builder-status";
+      }, 2500);
+    });
+
+    function getBuildRequest() {
+      const request = buildRequest.value.trim();
+      if (!request) {
+        buildRequest.focus();
+        builderStatus.textContent = "اكتب وصفًا قصيرًا لما تريد بناءه أولًا.";
+        builderStatus.className = "builder-status error";
+        return "";
+      }
+      return request;
+    }
+
+    function getBuildShareText(request) {
+      return `طلب برمجي من مِداد:\n\n${request}\n\nيرجى مراجعة التغييرات قبل حفظها أو تشغيلها.`;
+    }
+
+    document.querySelector("#share-build-request").addEventListener("click", async () => {
+      const request = getBuildRequest();
+      if (!request) return;
+      const text = getBuildShareText(request);
+      try {
+        const shareFile = typeof File === "function"
+          ? new File([text], "medad-project-request.txt", { type: "text/plain" })
+          : null;
+        if (navigator.share && shareFile && navigator.canShare?.({ files: [shareFile] })) {
+          await navigator.share({
+            title: "طلب برمجي من مِداد",
+            text,
+            files: [shareFile]
+          });
+          builderStatus.textContent = "اختر أداة البرمجة المناسبة من قائمة المشاركة.";
+          builderStatus.className = "builder-status success";
+          return;
+        }
+        if (navigator.share) {
+          await navigator.share({ title: "طلب برمجي من مِداد", text });
+          builderStatus.textContent = "تمت مشاركة وصف المشروع.";
+          builderStatus.className = "builder-status success";
+          return;
+        }
+        if (!navigator.clipboard?.writeText) {
+          builderStatus.textContent = "المشاركة غير مدعومة هنا. نزّل الملف ثم أرسله إلى أداة البرمجة.";
+          builderStatus.className = "builder-status error";
+          return;
+        }
+        await navigator.clipboard.writeText(text);
+        builderStatus.textContent = "نُسخ الطلب؛ افتح أداة البرمجة والصقه فيها.";
+        builderStatus.className = "builder-status success";
+      } catch (error) {
+        if (error.name === "AbortError") return;
+        console.error("تعذّرت مشاركة وصف المشروع:", error);
+        builderStatus.textContent = "تعذّرت المشاركة. استخدم زر النسخ أو تنزيل الملف.";
+        builderStatus.className = "builder-status error";
+      }
+    });
+
+    document.querySelector("#copy-build-request").addEventListener("click", async () => {
+      const request = getBuildRequest();
+      if (!request) return;
+      try {
+        if (!navigator.clipboard?.writeText) {
+          builderStatus.textContent = "الحافظة غير متاحة في هذا المتصفح. نزّل الملف ثم الصقه في Termux.";
+          builderStatus.className = "builder-status error";
+          return;
+        }
+        await navigator.clipboard.writeText(getBuildShareText(request));
+        builderStatus.textContent = "نُسخ الطلب. افتح Termux والصقه في المحرر الذي تستخدمه.";
+        builderStatus.className = "builder-status success";
+      } catch (error) {
+        console.error("تعذّر نسخ وصف المشروع:", error);
+        builderStatus.textContent = "تعذّر الوصول إلى الحافظة؛ اسمح للموقع باستخدامها أو نزّل الملف.";
+        builderStatus.className = "builder-status error";
+      }
+    });
+
+    document.querySelector("#download-build-request").addEventListener("click", () => {
+      const request = getBuildRequest();
+      if (!request) return;
+      const file = new Blob([getBuildShareText(request)], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(file);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "medad-project-request.txt";
+      document.body.append(link);
+      link.click();
+      link.remove();
+      window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+      builderStatus.textContent = "تم تنزيل ملف الطلب. افتحه في Acode أو أرسله إلى Termux.";
+      builderStatus.className = "builder-status success";
+    });
+
+    const toast = document.querySelector("#toast");
+    let toastTimer;
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 2800);
+    }
+    const installButton = document.querySelector("#install-app");
+    let installPrompt = null;
+    const isIosDevice = /iphone|ipad|ipod/i.test(navigator.userAgent) ||
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    const isStandalone = window.matchMedia("(display-mode: standalone)").matches ||
+      window.navigator.standalone === true;
+
+    if (isStandalone) {
+      installButton.hidden = true;
+    } else {
+      window.addEventListener("beforeinstallprompt", event => {
+        event.preventDefault();
+        installPrompt = event;
+      });
+      window.addEventListener("appinstalled", () => {
+        installPrompt = null;
+        installButton.hidden = true;
+        showToast("تم تثبيت مِداد على جهازك.");
+      });
+      installButton.addEventListener("click", async () => {
+        if (installPrompt) {
+          try {
+            await installPrompt.prompt();
+            const choice = await installPrompt.userChoice;
+            installPrompt = null;
+            if (choice.outcome === "accepted") {
+              showToast("جارٍ تثبيت مِداد على جهازك.");
+            }
+          } catch (error) {
+            console.error("تعذّر بدء تثبيت التطبيق:", error);
+            showToast("تعذّر بدء التثبيت. جرّب قائمة المتصفح.");
+          }
+          return;
+        }
+        if (isIosDevice) {
+          showToast("في Safari اضغط «مشاركة» ثم «إضافة إلى الشاشة الرئيسية».");
+        } else if (!window.isSecureContext) {
+          showToast("يلزم نشر الموقع على HTTPS لتثبيته. file:// لا يدعم التثبيت.");
+        } else {
+          showToast("من قائمة المتصفح اختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية».");
+        }
+      });
+    }
+
+    document.querySelectorAll("[data-toast]").forEach(button => button.addEventListener("click", event => {
+      event.preventDefault();
+      showToast(button.dataset.toast);
+    }));
+
+    const authModal = document.querySelector("#auth-modal");
+    const authForm = document.querySelector("#auth-form");
+    const recoveryForm = document.querySelector("#recovery-form");
+    const authEmail = document.querySelector("#auth-email");
+    const authPassword = document.querySelector("#auth-password");
+    const authTitle = document.querySelector("#auth-title");
+    const authDescription = document.querySelector("#auth-description");
+    const authStatus = document.querySelector("#auth-status");
+    const authGuest = document.querySelector("#auth-guest");
+    const authAccount = document.querySelector("#auth-account");
+    const authActions = document.querySelector("#auth-actions");
+    const authSubmit = document.querySelector("#auth-submit");
+    const assistantForm = document.querySelector("#assistant-form");
+    const assistantInput = document.querySelector("#assistant-input");
+    const assistantMessagesElement = document.querySelector("#assistant-messages");
+    const assistantStatus = document.querySelector("#assistant-status");
+    const assistantSend = document.querySelector("#assistant-send");
+    const assistantClear = document.querySelector("#assistant-clear");
+    const assistantWelcome = "مرحبًا! اكتب سؤالك البرمجي، وسأبحث عن معلومات حديثة عندما يفيد ذلك، مع إرفاق المصادر المتاحة.";
+    const assistantHistory = [];
+    let assistantPending = false;
+    let authMode = "login";
+    let currentSession = null;
+
+    function resetAssistantConversation() {
+      assistantHistory.length = 0;
+      assistantMessagesElement.replaceChildren();
+      const welcome = document.createElement("div");
+      welcome.className = "assistant-message assistant";
+      welcome.textContent = assistantWelcome;
+      assistantMessagesElement.append(welcome);
+      assistantStatus.textContent = "محادثة جديدة. أرسل سؤالك؛ سياق هذه المحادثة يبقى في الصفحة الحالية فقط.";
+      assistantStatus.className = "assistant-note";
+    }
+
+    function addAssistantMessage(role, text, sources = []) {
+      const message = document.createElement("div");
+      message.className = `assistant-message ${role}`;
+      message.textContent = text;
+      if (role === "assistant" && sources.length) {
+        const sourceList = document.createElement("div");
+        sourceList.className = "assistant-sources";
+        sources.forEach(source => {
+          try {
+            const url = new URL(source.url);
+            if (url.protocol !== "https:") return;
+            const link = document.createElement("a");
+            link.href = url.toString();
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            link.textContent = source.title || url.hostname;
+            sourceList.append(link);
+          } catch {
+            return;
+          }
+        });
+        if (sourceList.childElementCount) {
+          const sourceLabel = document.createElement("span");
+          sourceLabel.textContent = "المصادر:";
+          message.append(sourceLabel, sourceList);
+        }
+      }
+      assistantMessagesElement.append(message);
+      assistantMessagesElement.scrollTop = assistantMessagesElement.scrollHeight;
+    }
+
+    assistantForm.addEventListener("submit", async event => {
+      event.preventDefault();
+      const question = assistantInput.value.trim();
+      if (!question || assistantPending) return;
+      if (!supabaseClient) {
+        assistantStatus.textContent = "أعد إعداد Supabase في الصفحة، ثم انشر وظيفة medad-assistant ومفتاح Gemini في الخادم.";
+        assistantStatus.className = "assistant-note error";
+        return;
+      }
+      if (!currentSession?.user) {
+        assistantStatus.textContent = "سجّل الدخول بحسابك لاستخدام المساعد.";
+        assistantStatus.className = "assistant-note error";
+        openAuth("login");
+        return;
+      }
+
+      assistantPending = true;
+      assistantSend.disabled = true;
+      assistantClear.disabled = true;
+      assistantInput.disabled = true;
+      assistantStatus.textContent = "يبحث ويفكّر في إجابة مناسبة…";
+      assistantStatus.className = "assistant-note";
+      addAssistantMessage("user", question);
+      const pending = document.createElement("div");
+      pending.className = "assistant-pending";
+      pending.textContent = "جارٍ إعداد الإجابة…";
+      assistantMessagesElement.append(pending);
+      assistantMessagesElement.scrollTop = assistantMessagesElement.scrollHeight;
+
+      try {
+        const messages = [...assistantHistory.slice(-10), { role: "user", text: question }];
+        const { data, error } = await supabaseClient.functions.invoke("medad-assistant", {
+          body: { messages }
+        });
+        if (error) throw error;
+        if (typeof data?.answer !== "string" || !data.answer.trim()) {
+          throw new Error("وصل رد غير مكتمل من المساعد. حاول مرة أخرى.");
+        }
+        assistantHistory.push({ role: "user", text: question }, {
+          role: "model",
+          text: data.answer
+        });
+        if (assistantHistory.length > 12) assistantHistory.splice(0, assistantHistory.length - 12);
+        pending.remove();
+        addAssistantMessage("assistant", data.answer, Array.isArray(data.sources) ? data.sources : []);
+        assistantInput.value = "";
+        assistantStatus.textContent = "تُرسل آخر رسائل هذه المحادثة فقط إلى Gemini. ابدأ محادثة جديدة لمسح السياق المحلي.";
+        assistantStatus.className = "assistant-note";
+      } catch (error) {
+        pending.remove();
+        console.error("تعذّرت استجابة مساعد مِداد:", error);
+        assistantStatus.textContent = error.message || "تعذّر الاتصال بالمساعد. تحقق من الإعدادات والاتصال ثم حاول مجددًا.";
+        assistantStatus.className = "assistant-note error";
+      } finally {
+        assistantPending = false;
+        assistantSend.disabled = false;
+        assistantClear.disabled = false;
+        assistantInput.disabled = false;
+        assistantInput.focus();
+      }
+    });
+
+    assistantClear.addEventListener("click", () => {
+      if (assistantPending) return;
+      resetAssistantConversation();
+    });
+
+    function setAuthStatus(message, state = "") {
+      authStatus.textContent = message;
+      authStatus.className = `auth-status${state ? ` ${state}` : ""}`;
+    }
+
+    function setAuthMode(mode) {
+      authMode = mode;
+      const isRecovery = mode === "recovery";
+      const isAccount = mode === "account";
+      authForm.hidden = isRecovery;
+      recoveryForm.hidden = mode !== "recovery";
+      authActions.hidden = isRecovery || isAccount;
+      authTitle.textContent = mode === "signup" ? "إنشاء حساب" : isRecovery ? "إعادة تعيين كلمة المرور" : isAccount ? "حسابك" : "تسجيل الدخول";
+      authDescription.textContent = mode === "signup"
+        ? "أنشئ حسابًا ببريدك الإلكتروني وكلمة مرور."
+        : isRecovery
+          ? "اختر كلمة مرور جديدة لحسابك."
+          : isAccount
+            ? "إدارة جلسة حسابك."
+            : "أدخل بريدك الإلكتروني وكلمة المرور للمتابعة.";
+      authSubmit.textContent = mode === "signup" ? "إنشاء الحساب" : "تسجيل الدخول";
+      authPassword.autocomplete = mode === "signup" ? "new-password" : "current-password";
+      document.querySelector("#auth-mode-toggle").textContent = mode === "signup" ? "لديك حساب؟ سجّل الدخول" : "إنشاء حساب جديد";
+      document.querySelector("#forgot-password").hidden = mode === "signup" || isAccount;
+      setAuthStatus("");
+    }
+
+    function updateAuthView(session) {
+      const previousUserId = currentSession?.user?.id || null;
+      currentSession = session;
+      const isSignedIn = Boolean(session?.user);
+      const nextUserId = session?.user?.id || null;
+      if (previousUserId && previousUserId !== nextUserId) resetAssistantConversation();
+      authGuest.hidden = isSignedIn && authMode !== "recovery";
+      authAccount.hidden = !isSignedIn || authMode === "recovery";
+      document.querySelector("#auth-user-email").textContent = session?.user?.email || "";
+      document.querySelectorAll("[data-open-auth]").forEach(button => {
+        if (button.classList.contains("login-link")) {
+          button.textContent = isSignedIn ? "حسابي" : "تسجيل الدخول";
+        } else {
+          button.textContent = isSignedIn ? "حسابي" : "ابدأ مجانًا";
+        }
+      });
+    }
+
+    function openAuth(mode = "login") {
+      authModal.classList.add("open");
+      setAuthMode(currentSession && mode !== "recovery" ? "account" : mode);
+      if (!supabaseClient) {
+        setAuthStatus("تحقّق من إعدادات Supabase واتصال الإنترنت لتحميل خدمة الحسابات.", "error");
+      } else if (!currentSession && mode !== "recovery") {
+        setTimeout(() => authEmail.focus(), 0);
+      }
+    }
+
+    document.querySelectorAll("[data-open-auth]").forEach(button => {
+      button.addEventListener("click", () => openAuth(button.dataset.authMode || "login"));
+    });
+    document.querySelector("#close-auth").addEventListener("click", () => authModal.classList.remove("open"));
+    authModal.addEventListener("click", event => {
+      if (event.target === authModal) authModal.classList.remove("open");
+    });
+    document.querySelector("#auth-mode-toggle").addEventListener("click", () => {
+      setAuthMode(authMode === "signup" ? "login" : "signup");
+    });
+
+    authForm.addEventListener("submit", async event => {
+      event.preventDefault();
+      if (!supabaseClient) {
+        setAuthStatus("أضف رابط مشروع Supabase ومفتاح anon بدل القيم الافتراضية في index.html.", "error");
+        return;
+      }
+      const email = authEmail.value.trim();
+      const password = authPassword.value;
+      authSubmit.disabled = true;
+      setAuthStatus(authMode === "signup" ? "جارٍ إنشاء الحساب…" : "جارٍ تسجيل الدخول…");
+      try {
+        if (authMode === "signup") {
+          const { data, error } = await supabaseClient.auth.signUp({
+            email,
+            password,
+            options: { emailRedirectTo: window.location.origin + window.location.pathname }
+          });
+          if (error) throw error;
+          if (data.session) {
+            updateAuthView(data.session);
+            authModal.classList.remove("open");
+            showToast("تم إنشاء الحساب وتسجيل الدخول.");
+          } else {
+            setAuthStatus("تم إنشاء الحساب. افتح رسالة التأكيد في بريدك الإلكتروني لإكمال التسجيل.", "success");
+          }
+        } else {
+          const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+          if (error) throw error;
+          updateAuthView(data.session);
+          authModal.classList.remove("open");
+          showToast("تم تسجيل الدخول بنجاح.");
+        }
+        authPassword.value = "";
+      } catch (error) {
+        setAuthStatus(error.message || "تعذّر إكمال العملية. حاول مرة أخرى.", "error");
+      } finally {
+        authSubmit.disabled = false;
+      }
+    });
+
+    document.querySelector("#forgot-password").addEventListener("click", async () => {
+      if (!supabaseClient) {
+        setAuthStatus("أضف إعدادات Supabase إلى الصفحة أولًا.", "error");
+        return;
+      }
+      if (!authEmail.value.trim()) {
+        setAuthStatus("أدخل بريدك الإلكتروني أولًا لإرسال رابط الاستعادة.", "error");
+        authEmail.focus();
+        return;
+      }
+      setAuthStatus("جارٍ إرسال رابط الاستعادة…");
+      try {
+        const { error } = await supabaseClient.auth.resetPasswordForEmail(authEmail.value.trim(), {
+          redirectTo: window.location.origin + window.location.pathname
+        });
+        if (error) throw error;
+        setAuthStatus("إذا كان البريد مسجلًا، فستصلك رسالة تحتوي على رابط إعادة التعيين.", "success");
+      } catch (error) {
+        setAuthStatus(error.message || "تعذّر إرسال رابط الاستعادة.", "error");
+      }
+    });
+
+    recoveryForm.addEventListener("submit", async event => {
+      event.preventDefault();
+      if (!supabaseClient) {
+        setAuthStatus("أضف إعدادات Supabase إلى الصفحة أولًا.", "error");
+        return;
+      }
+      const password = document.querySelector("#new-password").value;
+      try {
+        const { error } = await supabaseClient.auth.updateUser({ password });
+        if (error) throw error;
+        document.querySelector("#new-password").value = "";
+        setAuthMode(currentSession ? "account" : "login");
+        setAuthStatus("تم تغيير كلمة المرور. يمكنك تسجيل الدخول الآن.", "success");
+      } catch (error) {
+        setAuthStatus(error.message || "تعذّر تغيير كلمة المرور.", "error");
+      }
+    });
+
+    document.querySelector("#sign-out").addEventListener("click", async () => {
+      if (!supabaseClient) return;
+      try {
+        const { error } = await supabaseClient.auth.signOut();
+        if (error) throw error;
+        updateAuthView(null);
+        setAuthMode("login");
+        setAuthStatus("تم تسجيل الخروج.", "success");
+      } catch (error) {
+        setAuthStatus(error.message || "تعذّر تسجيل الخروج.", "error");
+      }
+    });
+
+    if (supabaseClient) {
+      supabaseClient.auth.onAuthStateChange((event, session) => {
+        updateAuthView(session);
+        if (event === "PASSWORD_RECOVERY") {
+          openAuth("recovery");
+          setAuthStatus("اختر كلمة مرور جديدة لحسابك.");
+        }
+      });
+      supabaseClient.auth.getSession().then(({ data, error }) => {
+        if (error) {
+          setAuthStatus(error.message || "تعذّر التحقق من جلسة الدخول.", "error");
+          return;
+        }
+        updateAuthView(data.session);
+      }).catch(error => {
+        setAuthStatus(error.message || "تعذّر التحقق من جلسة الدخول.", "error");
+      });
+    } else {
+      updateAuthView(null);
+    }
+
+    const modal = document.querySelector("#project-modal");
+    const projectName = document.querySelector("#project-name");
+    let projectType = "موقع";
+    function closeModal() { modal.classList.remove("open"); }
+    document.querySelectorAll("[data-open-modal]").forEach(button => button.addEventListener("click", () => {
+      modal.classList.add("open");
+      setTimeout(() => projectName.focus(), 0);
+    }));
+    document.querySelector(".close-modal").addEventListener("click", closeModal);
+    modal.addEventListener("click", event => { if (event.target === modal) closeModal(); });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") {
+        closeModal();
+        authModal.classList.remove("open");
+        closeLessonModal();
+      }
+    });
+    document.querySelectorAll(".type-option").forEach(button => button.addEventListener("click", () => {
+      document.querySelectorAll(".type-option").forEach(option => option.classList.toggle("selected", option === button));
+      projectType = button.dataset.type;
+    }));
+    document.querySelector("#project-form").addEventListener("submit", event => {
+      event.preventDefault();
+      if (!projectName.value.trim()) return;
+      const name = projectName.value.trim();
+      closeModal();
+      projectName.value = "";
+      showToast(`مساحة «${name}» جاهزة للانطلاق — مشروع ${projectType}!`);
+    });
+
+    const courses = {
+      html: {
+        name: "HTML",
+        lessons: [
+          { title: "أول وسم لك", intro: [{ headline: "كل صفحة تبدأ ببِنية واضحة", caption: "HTML تخبر المتصفح ما المحتوى: عنوان، فقرة، أو رابط.", code: "<h1>عنوان صفحتي</h1>" }, { headline: "الوسم يحدّد نوع المحتوى", caption: "h1 عنوان رئيسي؛ والنص بين البداية والنهاية هو محتواه.", code: "<h1>مرحبًا بالعالم</h1>" }, { headline: "أنت كتبت أول عنصر!", caption: "سنتعرّف الآن إلى وسم البداية ووسم الإغلاق ونتيجة كل منهما.", code: "<h1>أول عنوان لي</h1>" }], narration: "أهلًا بك! في درس اليوم سنتعرّف إلى لغة إتش تي إم إل، وهي التي تصف بنية صفحة الويب. سنكتب أول عنوان باستخدام الوسم إتش واحد. افتح الوسم، أضف النص، ثم أغلقه بشرطة مائلة. هكذا يفهم المتصفح أن النص عنوان رئيسي.", body: "HTML هي اللغة التي تصف محتوى صفحة الويب وبنيته؛ فهي تخبر المتصفح: هذا عنوان، وهذا نص، وهذا رابط. هيكل HTML لا يبرمج سلوك الصفحة ولا يحدد شكلها بالتفصيل؛ فالتنسيق عادةً من CSS والتفاعل من JavaScript.\n\nفي المثال، <h1> هو وسم بداية العنوان الرئيسي، والنص بين الوسمين هو المحتوى، و</h1> هو وسم الإغلاق. الشرطة المائلة / تعني أن العنصر انتهى. تظهر النتيجة عنوانًا كبيرًا، ويُفضّل استخدام عنوان رئيسي واحد يوضح موضوع الصفحة.", code: "<h1>مرحبًا بالعالم</h1>", output: "مرحبًا بالعالم — عنوان رئيسي في الصفحة.", tip: "قاعدة: معظم عناصر HTML لها وسم بداية ووسم نهاية، وبينهما المحتوى. يجب أن يتطابق اسما الوسمين.", question: "أي وسم نستخدمه لعنوان رئيسي؟", options: ["<p>", "<h1>", "<img>"], answer: 1, hint: "فكّر في الوسم المخصص للمستوى الأول من العناوين: اسمه يبدأ بحرف h ويتبعه الرقم 1.", badge: "شارة باني الصفحات" },
+          { title: "أضف فقرة", intro: [{ headline: "العناوين تجذب الانتباه… والفقرات تروي التفاصيل", caption: "الفقرة تنظّم النص وتجعله سهل القراءة.", code: "<p>فقرتي الأولى</p>" }, { headline: "هذا هو وسم الفقرة", caption: "يبدأ بـ p، ويغلق بـ /p حول النص الذي تريد عرضه.", code: "<p>أتعلم خطوة خطوة.</p>" }, { headline: "كل فقرة عنصر مستقل", caption: "أضف وسم p جديدًا لكل فقرة في صفحتك.", code: "<p>أتعلم.</p>\\n<p>وأتدرّب!</p>" }], narration: "في درس اليوم سنتعلّم كيف نضيف فقرة إلى صفحة الويب. وسم بي يُستخدم للنصوص، ويحيط ببداية الفقرة ونهايتها. كل فقرة عنصر مستقل، لذلك نكتب زوجًا جديدًا من الوسوم لكل فقرة. جرّب تغيير النص إلى جملة من اختيارك.", body: "نستخدم <p> للنص الذي يشكّل فقرة. يبدأ العنصر بـ <p> وينتهي بـ </p>، ويكتب المتصفح الفقرات ككتل نصية منفصلة عن العناصر المجاورة.\n\nفي المثال، عبارة «أنا أتعلم البرمجة!» هي محتوى الفقرة. استبدلها بأي نص تريده. لإضافة فقرة ثانية، اكتب عنصر <p> جديدًا؛ لا تضع فواصل أسطر عشوائية داخل HTML لتقسيم النص إلى فقرات.", code: "<p>أنا أتعلم البرمجة!</p>\n<p>هذه فقرتي الثانية.</p>", output: "فقرتان منفصلتان: «أنا أتعلم البرمجة!» و«هذه فقرتي الثانية.»", tip: "استخدم <p> للفقرات، واستخدم عناصر العناوين مثل <h1> و<h2> للعناوين. اختيار العنصر الصحيح يجعل الصفحة أوضح وأسهل على أدوات القراءة.", question: "أي وسم يحيط بفقرة نصية؟", options: ["<p>", "<title>", "<br>"], answer: 0, hint: "ابحث عن الوسم المسمى paragraph، واختصاره حرف p.", badge: "شارة راوي الحكايات" },
+          { title: "اربط صفحة برابط", intro: [{ headline: "اجعل النص يفتح بابًا جديدًا", caption: "الرابط ينقل الزائر إلى صفحة أو موقع آخر.", code: "<a>رابط</a>" }, { headline: "حدّد وجهة الرابط", caption: "نكتب العنوان في الخاصية href داخل وسم البداية.", code: "<a href='https://example.com'>" }, { headline: "اختر نصًا يوضّح الوجهة", caption: "النص بين الوسمين هو ما يراه الزائر وينقر عليه.", code: "<a href='...'>دليل HTML</a>" }], narration: "في درس اليوم سننشئ رابطًا قابلًا للنقر باستخدام الوسم إيه. نضع وجهة الرابط داخل الخاصية إتش ريف في وسم البداية، ثم نكتب النص الواضح الذي سيظهر للزائر، ونغلق الوسم. الرابط الجيد يخبر الزائر إلى أين سيذهب قبل أن ينقر.", body: "وسم <a> ينشئ رابطًا يمكن النقر عليه. النص بين <a> و</a> هو ما يراه الزائر، أما الخاصية href فتحدد العنوان الذي ينتقل إليه.\n\nالخصائص تُكتب داخل وسم البداية بصيغة: اسم الخاصية=\"القيمة\". في المثال، href هي اسم الخاصية، وhttps://example.com هو عنوان الوجهة. عند النقر على «افتح الرابط» يحاول المتصفح فتح هذا العنوان.", code: "<a href=\"https://example.com\">افتح الرابط</a>", output: "يظهر نص «افتح الرابط» كرابط قابل للنقر يفتح https://example.com.", tip: "نص الرابط جزء مهم من سهولة الاستخدام: اجعله يصف الوجهة، مثل «اقرأ دليل HTML»، بدلًا من «اضغط هنا».", question: "أين نضع عنوان الصفحة التي يفتحها الرابط؟", options: ["في الخاصية href", "بين وسمَي a", "في الخاصية src"], answer: 0, hint: "عنوان الوجهة هو قيمة خاصية الرابط التي تُكتب داخل وسم البداية.", badge: "شارة مستكشف الويب" }
+        ]
+      },
+      javascript: {
+        name: "JavaScript",
+        lessons: [
+          { title: "خزّن أول معلومة", intro: [{ headline: "البرنامج يتذكّر باستخدام المتغيّرات", caption: "المتغيّر اسم لقيمة سنحتاجها لاحقًا.", code: "const name = ...;" }, { headline: "أنشئ صندوقًا باسم واضح", caption: "const تعرّف متغيّرًا لا نعيد إسناد قيمته.", code: "const name = 'سارة';" }, { headline: "استخدم القيمة متى شئت", caption: "اكتب الاسم لاحقًا لتقرأ القيمة التي حفظتها.", code: "console.log(name);" }], narration: "اليوم سنتعلّم المتغيّرات في جافاسكريبت. المتغيّر اسم نحفظ تحته معلومة لاستخدامها لاحقًا. نبدأ بكلمة كونست، ثم اسم واضح، وعلامة يساوي، ثم القيمة بين علامتَي اقتباس. بعد ذلك نستخدم الاسم لقراءة القيمة المحفوظة.", body: "المتغير اسم نستخدمه للوصول إلى قيمة محفوظة، مثل اسم شخص أو رقم. لإنشاء متغير ثابت الإسناد نكتب const، ثم اسم المتغير، ثم =، ثم القيمة. علامة = هنا تعني «احفظ القيمة في المتغير».\n\nالنصوص في JavaScript تُكتب بين علامتَي اقتباس. لذلك يخزّن هذا السطر النص «سارة» داخل المتغير name. تستطيع استعمال name لاحقًا في أوامرك. أسماء المتغيرات حساسة لحالة الأحرف؛ name وName اسمان مختلفان.", code: "const name = \"سارة\";\nconsole.log(name);", output: "تظهر كلمة سارة في وحدة التحكم (Console).", tip: "const يمنع إعادة إسناد قيمة جديدة إلى المتغير. إذا كنت تحتاج تغيير القيمة لاحقًا، تعلّم let. لا يعني const أن كل شيء داخل القيمة يصبح غير قابل للتغيير.", question: "أي كلمة نستخدمها لإنشاء متغير لا نعيد إسناد قيمته؟", options: ["const", "style", "print"], answer: 0, hint: "هي كلمة محجوزة في JavaScript تُكتب قبل اسم المتغير عندما لا تنوي إسناد قيمة جديدة إليه.", badge: "شارة صديق المتغيرات" },
+          { title: "اطبع رسالة", intro: [{ headline: "كيف نعرف ما يفعله برنامجنا؟", caption: "أحيانًا نحتاج عرض قيمة لنراها أثناء التعلّم.", code: "console.log(...);" }, { headline: "عرّف وحدة تحكّم المطوّر", caption: "console.log تعرض القيمة في سجلّ وحدة التحكم.", code: "console.log('أهلًا!');" }, { headline: "راقب النتيجة بنفسك", caption: "سترى «أهلًا!» في وحدة التحكم، لا في نص الصفحة.", code: "→ أهلًا!" }], narration: "في درس اليوم سنتعلّم إظهار رسالة أثناء تشغيل جافاسكريبت. نستخدم الأمر كونسول دوت لوغ، ونضع النص بين القوسين وعلامتَي اقتباس. النتيجة تظهر في وحدة تحكم المطوّر، وهذا يساعدنا على فحص البرنامج أثناء بنائه.", body: "أثناء التعلّم، نحتاج أحيانًا رؤية قيمة أو رسالة للتأكد مما يفعله البرنامج. الأمر console.log(...) يرسل ما بين القوسين إلى وحدة التحكم الخاصة بالمطوّر.\n\nفي المثال، النص بين علامتَي الاقتباس هو ما سيظهر. الأقواس تحيط بالقيمة المراد طباعتها، والنقطة في console.log تفصل اسم الأداة عن الأمر log. هذه الرسالة تظهر في وحدة التحكم، وليست عنصرًا مرئيًا داخل صفحة الموقع.", code: "console.log(\"أهلًا!\");", output: "أهلًا! (تظهر في وحدة التحكم، لا داخل الصفحة نفسها.)", tip: "النصوص تحتاج علامتَي اقتباس، والأقواس مهمة لاستدعاء الأمر. الفاصلة المنقوطة ; اختيارية في كثير من الحالات، لكنها شائعة لإنهاء التعليمة.", question: "ما الأمر الذي يعرض رسالة في وحدة تحكم المطوّر؟", options: ["console.log()", "href()", "echo.html()"], answer: 0, hint: "ابحث عن الأمر الذي يبدأ بـ console ويتبعه log بين قوسين.", badge: "شارة صوت المبرمج" },
+          { title: "أنشئ دالة", intro: [{ headline: "اكتب الأمر مرة… واستعمله متى شئت", caption: "الدالة تجمع أوامر تحت اسم واحد.", code: "function greet() { ... }" }, { headline: "ضع خطوات الدالة بين الأقواس", caption: "هذه الأوامر لن تعمل إلا عندما تستدعي الدالة.", code: "console.log('مرحبًا!');" }, { headline: "استدعِ الدالة لتشغيلها", caption: "اسم الدالة مع () يشغّل الأوامر التي بداخلها.", code: "greet();" }], narration: "الدالة تجمع أوامر تحت اسم نستطيع استخدامه أكثر من مرة. نعرّفها بكلمة فانكشن، ثم اسمها، ثم أقواس، ثم الأوامر بين قوسين معقوفين. تعريف الدالة وحده لا يشغّلها؛ نكتب اسمها مع قوسين لاستدعائها وتنفيذ أوامرها.", body: "الدالة طريقة لجمع أوامر تحت اسم واحد كي تعيد استخدامها. نبدأ تعريفها بكلمة function، ثم الاسم، ثم ()، ثم كتلة الأوامر داخل { }.\n\nتعريف الدالة لا يشغّلها بحد ذاته. في المثال، السطر الأخير greet(); هو استدعاء الدالة: اسمها متبوع بقوسين. عند الاستدعاء تُنفّذ الأوامر بين القوسين المعقوفين، فتظهر الرسالة.", code: "function greet() {\n  console.log(\"مرحبًا!\");\n}\ngreet();", output: "مرحبًا! — لأننا استدعينا الدالة greet بعد تعريفها.", tip: "تذكّر الفرق: تعريف الدالة يجهّز الأوامر، واستدعاؤها يشغّلها. إذا حذفت greet(); فلن تُنفّذ الرسالة في هذا المثال.", question: "كيف نشغّل الدالة greet بعد تعريفها؟", options: ["بكتابة greet()", "بكتابة run greet", "لا يمكن تشغيلها"], answer: 0, hint: "استدعاء الدالة يعني كتابة اسمها ثم أقواس الاستدعاء.", badge: "شارة صانع التفاعل" }
+        ]
+      },
+      python: {
+        name: "Python",
+        lessons: [
+          { title: "عرّف متغيرًا", intro: [{ headline: "أعطِ المعلومة اسمًا لتعود إليها", caption: "المتغيّر يحفظ قيمة لاستخدامها لاحقًا.", code: "name = ..." }, { headline: "Python تجعل البداية بسيطة", caption: "اسم المتغيّر ثم = ثم القيمة؛ بلا كلمة إضافية.", code: "name = 'ليلى'" }, { headline: "اقرأ ما خزّنته", caption: "مرّر اسم المتغيّر إلى print لرؤية قيمته.", code: "print(name)" }], narration: "في درس اليوم سننشئ متغيّرًا بلغة بايثون. المتغيّر اسم نحفظ فيه قيمة. اكتب اسم المتغيّر، ثم علامة يساوي، ثم النص بين علامتَي اقتباس. تستطيع استخدام الاسم بعد ذلك لقراءة القيمة أو طباعتها.", body: "المتغير اسم يشير إلى قيمة يستطيع البرنامج استخدامها. في Python، تكتب اسم المتغير ثم = ثم القيمة؛ لا تحتاج إلى كتابة كلمة خاصة قبل الاسم.\n\nهنا اسم المتغير هو name والقيمة نص هي «ليلى». علامات الاقتباس تعرّف القيمة على أنها نص لا اسم متغير. يمكنك بعدها كتابة name لقراءة القيمة المحفوظة. Python تميّز بين الأحرف الكبيرة والصغيرة في الأسماء.", code: "name = \"ليلى\"\nprint(name)", output: "ليلى", tip: "استخدم أسماء واضحة مثل name أو age، ولا تبدأ اسم المتغير برقم. علامة = في هذا السياق تسند القيمة إلى الاسم؛ ليست سؤالًا للمقارنة.", question: "كيف نخزّن الاسم ليلى في متغير اسمه name؟", options: ["name = \"ليلى\"", "let name: ليلى", "<name>ليلى</name>"], answer: 0, hint: "في Python اكتب اسم المتغير، ثم =، ثم النص بين علامتَي اقتباس؛ لا تحتاج إلى let.", badge: "شارة مستكشف بايثون" },
+          { title: "اطبع أول رسالة", intro: [{ headline: "دع برنامجك يقول مرحبًا!", caption: "يمكنك رؤية نتيجة البرنامج في نافذة المخرجات.", code: "print(...)" }, { headline: "print هي أمر الطباعة", caption: "ضع النص داخل القوسين وبين علامتَي اقتباس.", code: "print('مرحبًا!')" }, { headline: "شغّل السطر وشاهد النتيجة", caption: "Python تعرض النص في المخرجات بلا علامتَي اقتباس.", code: "→ مرحبًا!" }], narration: "هيا نطبع أول رسالة بلغة بايثون. نستخدم الدالة برنت، ثم نضع النص بين قوسين وعلامتَي اقتباس. عندما نشغّل السطر، تظهر الرسالة في مخرجات البرنامج. جرّب لاحقًا تغييرها إلى تحية من اختيارك.", body: "الدالة print تعرض قيمة في مخرجات البرنامج. نكتب الاسم print ثم أقواسًا، ونضع داخلها الشيء الذي نريد طباعته.\n\nالنصوص تكتب بين علامتَي اقتباس. لذلك يطبع هذا المثال «مرحبًا بالعالم!» من دون طباعة علامتَي الاقتباس نفسيهما. print من أوائل الطرق التي نستخدمها لمشاهدة نتيجة برنامج Python.", code: "print(\"مرحبًا بالعالم!\")", output: "مرحبًا بالعالم!", tip: "تأكد من إغلاق القوس وعلامتَي الاقتباس. إذا كتبت print(name) من دون اقتباس، فسيحاول Python قراءة قيمة متغير اسمه name.", question: "أي أمر يطبع رسالة في Python؟", options: ["console.log()", "print()", "show.html()"], answer: 1, hint: "في Python اسم الدالة المدمجة لطباعة المخرجات هو الكلمة الإنجليزية التي تعني «اطبع».", badge: "شارة صاحب الرسالة" },
+          { title: "اجمع أرقامًا", intro: [{ headline: "اجعل الحاسوب يحسب معك", caption: "Python تنفّذ العمليات الحسابية في الكود.", code: "3 + 2" }, { headline: "احفظ نتيجة العملية", caption: "نجمع العددين ثم نضع النتيجة في متغير.", code: "total = 3 + 2" }, { headline: "اطبع الناتج وتحقّق", caption: "المتغيّر total يحمل 5؛ اطبعه لرؤية النتيجة.", code: "print(total)  →  5" }], narration: "في هذا الدرس سنستخدم بايثون لإجراء عملية جمع بسيطة. نكتب العددين وبينهما علامة الجمع، ثم نحفظ الناتج في متغيّر اسمه توتل. وأخيرًا نستخدم برنت لعرض القيمة المحسوبة. جرّب تغيير العددين ولاحظ اختلاف النتيجة.", body: "يمكن لـ Python إجراء العمليات الحسابية المعتادة: + للجمع، - للطرح، * للضرب، و/ للقسمة. عندما تكتب عملية بين رقمين، يحسب البرنامج النتيجة.\n\nفي السطر الأول، يجمع Python العددين 3 و2 ثم يحفظ الناتج 5 في المتغير total. في السطر الثاني نمرّر اسم المتغير إلى print، فيطبع القيمة المحفوظة، لا اسم المتغير.", code: "total = 3 + 2\nprint(total)", output: "5", tip: "الأرقام من دون اقتباس تعامل كأعداد: 3 + 2 نتيجتها 5. أما \"3\" + \"2\" فهما نصّان، ولا تعني العملية الشيء نفسه.", question: "ما القيمة التي يطبعها المثال بعد حساب 3 + 2؟", options: ["32", "5", "total"], answer: 1, hint: "اجمع العددين أولًا، ثم تذكّر أن print(total) يطبع القيمة المخزنة في المتغير.", badge: "شارة حلّال المسائل" }
+        ]
+      }
+    };
+    const progressKey = "medad-learning-progress";
+    const progress = { html: 0, javascript: 0, python: 0 };
+    try {
+      const savedProgress = localStorage.getItem(progressKey);
+      if (savedProgress) {
+        const parsedProgress = JSON.parse(savedProgress);
+        Object.keys(progress).forEach(courseId => {
+          const savedCount = parsedProgress[courseId];
+          if (Number.isInteger(savedCount) && savedCount >= 0 && savedCount <= courses[courseId].lessons.length) {
+            progress[courseId] = savedCount;
+          }
+        });
+      }
+    } catch {
+      showToast("تعذّر تحميل تقدّم الدروس المحفوظ.");
+    }
+
+    const lessonModal = document.querySelector("#lesson-modal");
+    const introPlayer = document.querySelector("#intro-player");
+    const introKicker = document.querySelector("#intro-kicker");
+    const introHeadline = document.querySelector("#intro-headline");
+    const introCaption = document.querySelector("#intro-caption");
+    const introCode = document.querySelector("#intro-code");
+    const introTime = document.querySelector("#intro-time");
+    const introProgressFill = document.querySelector("#intro-progress-fill");
+    const introPlayButton = document.querySelector("#intro-play");
+    const introVoiceButton = document.querySelector("#intro-voice");
+    const introSkipButton = document.querySelector("#intro-skip");
+    const introReplayButton = document.querySelector("#replay-intro");
+    const lessonContent = document.querySelector("#lesson-content");
+    const lessonLabel = document.querySelector("#lesson-course-label");
+    const lessonNumber = document.querySelector("#lesson-number");
+    const lessonTitle = document.querySelector("#lesson-title");
+    const lessonBody = document.querySelector("#lesson-body");
+    const lessonCode = document.querySelector("#lesson-code");
+    const lessonOutput = document.querySelector("#lesson-output");
+    const lessonOutputText = document.querySelector("#lesson-output-text");
+    const lessonTip = document.querySelector("#lesson-tip");
+    const quizQuestion = document.querySelector("#quiz-question");
+    const quizOptions = document.querySelector("#quiz-options");
+    const lessonFeedback = document.querySelector("#lesson-feedback");
+    const lessonNext = document.querySelector("#lesson-next");
+    let activeCourse = "";
+    let lessonAnswered = false;
+    let introInterval = 0;
+    let introElapsed = 0;
+    let introPlaying = false;
+    let activeIntro = null;
+    let activeLesson = null;
+    const introDuration = 18000;
+    function renderIntroScene(sceneIndex) {
+      const scene = activeIntro.scenes[sceneIndex];
+      introKicker.textContent = `${courses[activeCourse].name} · ${activeIntro.title}`;
+      introHeadline.textContent = scene.headline;
+      introCaption.textContent = scene.caption;
+      introCode.textContent = scene.code;
+    }
+
+    function updateIntroPlayback() {
+      const sceneDuration = introDuration / activeIntro.scenes.length;
+      const sceneIndex = Math.min(activeIntro.scenes.length - 1, Math.floor(introElapsed / sceneDuration));
+      if (introPlayer.dataset.scene !== String(sceneIndex)) {
+        introPlayer.dataset.scene = String(sceneIndex);
+        renderIntroScene(sceneIndex);
+      }
+      const progress = Math.min(1, introElapsed / introDuration);
+      introProgressFill.style.width = `${progress * 100}%`;
+      const remaining = Math.ceil((introDuration - introElapsed) / 1000);
+      introTime.textContent = `٠٠:${String(remaining).padStart(2, "0").replace(/\d/g, digit => "٠١٢٣٤٥٦٧٨٩"[digit])}`;
+      if (progress >= 1) finishIntro();
+    }
+
+    function finishIntro() {
+      window.clearInterval(introInterval);
+      introInterval = 0;
+      introPlaying = false;
+      introElapsed = introDuration;
+      introPlayer.classList.remove("playing");
+      introPlayButton.textContent = "↻ شاهد المقدّمة";
+      introProgressFill.style.width = "100%";
+      introTime.textContent = "اكتملت";
+      introSkipButton.hidden = true;
+      introPlayer.hidden = true;
+      lessonContent.hidden = false;
+      if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+      introVoiceButton.setAttribute("aria-pressed", "false");
+      introVoiceButton.textContent = "🔊 استمع";
+    }
+
+    function stopIntroPlayback() {
+      window.clearInterval(introInterval);
+      introInterval = 0;
+      introPlaying = false;
+      introPlayer.classList.remove("playing");
+      if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+      introVoiceButton.setAttribute("aria-pressed", "false");
+      introVoiceButton.textContent = "🔊 استمع";
+    }
+
+    function startIntroPlayback() {
+      if (introPlaying) {
+        window.clearInterval(introInterval);
+        introInterval = 0;
+        introPlaying = false;
+        introPlayer.classList.remove("playing");
+        introPlayButton.textContent = "▶ متابعة المقدّمة";
+        if ("speechSynthesis" in window) window.speechSynthesis.pause();
+        return;
+      }
+      if (introElapsed >= introDuration) {
+        introElapsed = 0;
+        introPlayer.dataset.scene = "-1";
+        introSkipButton.hidden = false;
+        lessonContent.hidden = true;
+      }
+      introPlayer.hidden = false;
+      introPlaying = true;
+      introPlayer.classList.add("playing");
+      introPlayButton.textContent = "Ⅱ إيقاف مؤقت";
+      if ("speechSynthesis" in window && window.speechSynthesis.paused) window.speechSynthesis.resume();
+      introInterval = window.setInterval(() => {
+        introElapsed += 100;
+        updateIntroPlayback();
+      }, 100);
+    }
+
+    function beginIntro(lesson) {
+      stopIntroPlayback();
+      activeLesson = lesson;
+      activeIntro = { title: lesson.title, scenes: lesson.intro, narration: lesson.narration };
+      introElapsed = 0;
+      introPlayer.dataset.scene = "-1";
+      introPlayer.hidden = false;
+      introPlayer.classList.remove("playing");
+      introProgressFill.style.width = "0%";
+      introTime.textContent = "٠٠:١٨";
+      introPlayButton.textContent = "▶ شاهد المقدّمة";
+      introSkipButton.hidden = false;
+      introVoiceButton.hidden = false;
+      lessonContent.hidden = true;
+      renderIntroScene(0);
+    }
+
+    introPlayButton.addEventListener("click", startIntroPlayback);
+    introSkipButton.addEventListener("click", finishIntro);
+    introVoiceButton.addEventListener("click", () => {
+      if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) {
+        showToast("ميزة القراءة الصوتية غير مدعومة في هذا المتصفح.");
+        return;
+      }
+      if (window.speechSynthesis.speaking || window.speechSynthesis.paused) {
+        window.speechSynthesis.cancel();
+        introVoiceButton.setAttribute("aria-pressed", "false");
+        introVoiceButton.textContent = "🔊 استمع";
+        return;
+      }
+      const narration = new SpeechSynthesisUtterance(activeIntro.narration);
+      narration.lang = "ar-SA";
+      narration.rate = 0.92;
+      narration.onend = () => {
+        introVoiceButton.setAttribute("aria-pressed", "false");
+        introVoiceButton.textContent = "🔊 استمع";
+      };
+      narration.onerror = () => {
+        introVoiceButton.setAttribute("aria-pressed", "false");
+        introVoiceButton.textContent = "🔊 استمع";
+        showToast("تعذّرت قراءة المقدمة صوتيًا. يمكنك مشاهدة النص والمشاهد.");
+      };
+      window.speechSynthesis.speak(narration);
+      introVoiceButton.setAttribute("aria-pressed", "true");
+      introVoiceButton.textContent = "■ إيقاف الصوت";
+    });
+    introReplayButton.addEventListener("click", () => {
+      if (activeLesson) beginIntro(activeLesson);
+    });
+
+    function updateLearningSummary() {
+      const completed = Object.values(progress).reduce((total, count) => total + count, 0);
+      const percent = Math.round(completed / 9 * 100);
+      document.querySelector("#lessons-count").textContent = `${completed.toLocaleString("ar")} / ٩ دروس`;
+      document.querySelector("#xp-total").textContent = `${(completed * 20).toLocaleString("ar")} XP`;
+      document.querySelector("#badge-count").textContent = `🏅 ${completed.toLocaleString("ar")} شارات`;
+      document.querySelector("#learning-progress-fill").style.width = `${percent}%`;
+      document.querySelector(".learning-progress [role='progressbar']").setAttribute("aria-valuenow", String(completed));
+      document.querySelector("#progress-message").textContent = completed === 9 ? "أتممت كل الدروس! إنجاز رائع 🎉" : completed ? `أكملت ${percent.toLocaleString("ar")}٪ من رحلتك` : "اختر لغة وابدأ أول درس!";
+
+      Object.keys(courses).forEach(courseId => {
+        const count = progress[courseId];
+        const label = document.querySelector(`[data-course-progress="${courseId}"]`);
+        const button = document.querySelector(`[data-start-course="${courseId}"]`);
+        label.textContent = count === 3 ? "اكتمل المسار · ٣ شارات 🏅" : count ? `${count.toLocaleString("ar")} / ٣ دروس · ${((3 - count) * 20).toLocaleString("ar")} XP متبقية` : "٣ دروس قصيرة · ٦٠ XP";
+        button.textContent = count === 3 ? "راجع إنجازك" : count ? "تابع التعلّم" : "ابدأ التعلّم";
+      });
+    }
+
+    function closeLessonModal() {
+      stopIntroPlayback();
+      lessonModal.classList.remove("open");
+    }
+
+    function renderLesson() {
+      const course = courses[activeCourse];
+      const lessonIndex = progress[activeCourse];
+      const lesson = course.lessons[lessonIndex];
+      lessonLabel.textContent = course.name;
+      lessonNext.hidden = true;
+      lessonFeedback.textContent = "";
+      lessonFeedback.className = "lesson-feedback";
+      lessonAnswered = false;
+      quizOptions.replaceChildren();
+      lessonContent.hidden = false;
+
+      if (!lesson) {
+        lessonNumber.textContent = "المسار مكتمل";
+        lessonTitle.textContent = "أحسنت! أنهيت المسار 🎉";
+        activeLesson = null;
+        introReplayButton.hidden = true;
+        introPlayer.hidden = true;
+        lessonBody.textContent = "أنجزت دروس هذه اللغة وجمعت كل شاراتها. اختر لغة أخرى لمواصلة التحدّي!";
+        lessonBody.hidden = false;
+        lessonCode.hidden = true;
+        lessonOutput.hidden = true;
+        lessonTip.hidden = true;
+        quizQuestion.hidden = true;
+        quizOptions.hidden = true;
+        lessonNext.textContent = "إغلاق";
+        lessonNext.hidden = false;
+        return;
+      }
+
+      beginIntro(lesson);
+      introReplayButton.hidden = false;
+      lessonNumber.textContent = `الدرس ${lessonIndex + 1} من ${course.lessons.length}`;
+      lessonTitle.textContent = lesson.title;
+      lessonBody.hidden = false;
+      lessonBody.replaceChildren();
+      lesson.body.split("\n\n").forEach(paragraph => {
+        const element = document.createElement("p");
+        element.textContent = paragraph;
+        lessonBody.append(element);
+      });
+      lessonCode.textContent = lesson.code;
+      lessonCode.hidden = false;
+      lessonOutputText.textContent = lesson.output;
+      lessonOutput.hidden = false;
+      lessonTip.textContent = `تذكّر: ${lesson.tip}`;
+      lessonTip.hidden = false;
+      quizQuestion.textContent = lesson.question;
+      quizQuestion.hidden = false;
+      quizOptions.hidden = false;
+      lesson.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "quiz-option";
+        button.textContent = option;
+        button.addEventListener("click", () => answerLesson(button, index, lesson));
+        quizOptions.append(button);
+      });
+    }
+
+    function answerLesson(selectedButton, selectedIndex, lesson) {
+      if (lessonAnswered) return;
+      if (selectedIndex !== lesson.answer) {
+        selectedButton.classList.add("incorrect");
+        lessonFeedback.textContent = `${lesson.hint} جرّب مرة أخرى! 💪`;
+        lessonFeedback.className = "lesson-feedback error";
+        return;
+      }
+
+      lessonAnswered = true;
+      selectedButton.classList.add("correct");
+      quizOptions.querySelectorAll("button").forEach(button => { button.disabled = true; });
+      progress[activeCourse]++;
+      try {
+        localStorage.setItem(progressKey, JSON.stringify(progress));
+      } catch {
+        showToast("أُكمل الدرس، لكن تعذّر حفظ تقدّمك على هذا الجهاز.");
+      }
+      updateLearningSummary();
+      lessonFeedback.textContent = `إجابة صحيحة! حصلت على +٢٠ XP و${lesson.badge} 🏅`;
+      lessonFeedback.className = "lesson-feedback success";
+      lessonNext.textContent = progress[activeCourse] === courses[activeCourse].lessons.length ? "أنهِ الدرس واحتفل 🎉" : "الدرس التالي ←";
+      lessonNext.hidden = false;
+    }
+
+    document.querySelectorAll("[data-start-course]").forEach(button => button.addEventListener("click", () => {
+      activeCourse = button.dataset.startCourse;
+      lessonModal.classList.add("open");
+      renderLesson();
+    }));
+    lessonNext.addEventListener("click", () => {
+      if (lessonAnswered) {
+        renderLesson();
+      } else {
+        closeLessonModal();
+      }
+    });
+    document.querySelector("#close-lesson").addEventListener("click", closeLessonModal);
+    lessonModal.addEventListener("click", event => { if (event.target === lessonModal) closeLessonModal(); });
+    updateLearningSummary();
+
+    const menuToggle = document.querySelector(".menu-toggle");
+    const nav = document.querySelector("#main-nav");
+    menuToggle.addEventListener("click", () => {
+      const isOpen = nav.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+    nav.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
+      nav.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+    }));
+
+    if ("serviceWorker" in navigator && window.isSecureContext) {
+      navigator.serviceWorker.register("./sw.js")
+        .then(() => console.info("تم تفعيل وضع العمل دون اتصال لمِداد."))
+        .catch(error => {
+          console.error("تعذّر تسجيل Service Worker:", error);
+          showToast("تعذّر تفعيل العمل دون اتصال. تحقق من إعداد الاستضافة.");
+        });
+    }
+  </script>
+</body>
+</html>
