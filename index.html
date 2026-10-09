@@ -600,6 +600,7 @@
   <script>
     const SUPABASE_URL = "https://iinymsdcxkviigpvcurj.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_sN6tKiMytU1GVsPLcw2h-Q_KIY8LVzA";
+    const AUTH_REDIRECT_URL = "https://nazim10-u.github.io/nazim/";
     const supabaseConfigured = SUPABASE_URL.startsWith("https://") &&
       !SUPABASE_URL.includes("YOUR_") &&
       SUPABASE_ANON_KEY.length > 20 &&
@@ -1021,7 +1022,7 @@
           const { data, error } = await supabaseClient.auth.signUp({
             email,
             password,
-            options: { emailRedirectTo: window.location.origin + window.location.pathname }
+            options: { emailRedirectTo: AUTH_REDIRECT_URL }
           });
           if (error) throw error;
           if (data.session) {
@@ -1059,7 +1060,7 @@
       setAuthStatus("جارٍ إرسال رابط الاستعادة…");
       try {
         const { error } = await supabaseClient.auth.resetPasswordForEmail(authEmail.value.trim(), {
-          redirectTo: window.location.origin + window.location.pathname
+          redirectTo: AUTH_REDIRECT_URL
         });
         if (error) throw error;
         setAuthStatus("إذا كان البريد مسجلًا، فستصلك رسالة تحتوي على رابط إعادة التعيين.", "success");
