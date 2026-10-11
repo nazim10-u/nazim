@@ -62,9 +62,6 @@
     .install-button { display: inline-flex; align-items: center; gap: 8px; padding: 9px 13px; border: 1px solid rgba(255,255,255,.35); border-radius: 11px; background: transparent; color: white; font-size: 13px; font-weight: 700; }
     .install-button:hover { background: rgba(255,255,255,.12); }
     .install-button svg { width: 17px; height: 17px; }
-    .install-button { display: inline-flex; align-items: center; gap: 8px; padding: 9px 13px; border: 1px solid rgba(255,255,255,.35); border-radius: 11px; background: transparent; color: white; font-size: 13px; font-weight: 700; }
-    .install-button:hover { background: rgba(255,255,255,.12); }
-    .install-button svg { width: 17px; height: 17px; }
     .menu-toggle { display: none; border: 1px solid var(--line); border-radius: 10px; padding: 9px; background: white; color: var(--ink); }
     .hero { position: relative; overflow: hidden; display: grid; grid-template-columns: 1.02fr .98fr; align-items: center; gap: 30px; min-height: 385px; padding: 48px 58px; border-radius: 25px; color: white; background: var(--green-deep); }
     .hero::before, .hero::after { content: ""; position: absolute; border-radius: 50%; pointer-events: none; }
@@ -419,21 +416,6 @@
           <p class="builder-status" id="builder-status" role="status" aria-live="polite">لن يكتب الموقع إلى ملفاتك بنفسه؛ Copilot يعرض التغييرات لتراجعها في VS Code.</p>
         </form>
       </div>
-      <section class="assistant-card" id="medad-assistant" aria-labelledby="assistant-title">
-        <div class="assistant-heading">
-          <div><h3 id="assistant-title">مساعد مِداد الذكي</h3><p>اسأله عن البرمجة، وسيبحث في الويب عند الحاجة ويعرض مصادره. يحتفظ بسياق هذه المحادثة في الصفحة الحالية فقط، ولا يتعلّم دائمًا من محادثات المستخدمين.</p></div>
-          <button class="assistant-clear" id="assistant-clear" type="button">محادثة جديدة</button>
-        </div>
-        <div class="assistant-messages" id="assistant-messages" role="log" aria-live="polite" aria-relevant="additions text">
-          <div class="assistant-message assistant">مرحبًا! اكتب سؤالك البرمجي، وسأبحث عن معلومات حديثة عندما يفيد ذلك، مع إرفاق المصادر المتاحة.</div>
-        </div>
-        <form class="assistant-form" id="assistant-form">
-          <label class="sr-only" for="assistant-input">اكتب سؤالك للمساعد الذكي</label>
-          <textarea id="assistant-input" maxlength="4000" required placeholder="اسأل عن كود، خطأ، مكتبة، أو معلومة تقنية..."></textarea>
-          <button class="button" id="assistant-send" type="submit">أرسل السؤال</button>
-        </form>
-        <p class="assistant-note" id="assistant-status" role="status" aria-live="polite">يتطلب حسابًا مسجّلًا وإعداد وظيفة Supabase ومفتاح Gemini في الخادم. تُرسل رسائلك إلى Google لتوليد الرد؛ لا ترسل كلمات مرور أو أسرارًا.</p>
-      </section>
     </section>
 
     <section class="section" id="tools">
@@ -551,11 +533,13 @@
   <div class="modal-backdrop" id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title">
     <section class="modal auth-modal">
       <div class="modal-top"><h2 id="auth-title">تسجيل الدخول</h2><button class="close-modal" id="close-auth" type="button" aria-label="إغلاق">×</button></div>
-      <p id="auth-description">أدخل بريدك الإلكتروني وكلمة المرور للمتابعة.</p>
+      <p id="auth-description">أدخل بريدك الإلكتروني ورقم هاتفك وكلمة المرور للمتابعة.</p>
       <div id="auth-guest">
         <form id="auth-form">
           <label class="field-label" for="auth-email">البريد الإلكتروني</label>
           <input id="auth-email" type="email" autocomplete="email" required maxlength="254" placeholder="name@example.com">
+          <label class="field-label" for="auth-phone">رقم الهاتف</label>
+          <input id="auth-phone" type="tel" inputmode="tel" autocomplete="tel" required pattern="^\+?[0-9\s\-()]{8,20}$" maxlength="20" placeholder="+966500000000">
           <label class="field-label" for="auth-password">كلمة المرور</label>
           <input id="auth-password" type="password" autocomplete="current-password" required minlength="6" maxlength="72" placeholder="٦ أحرف على الأقل">
           <button class="button modal-submit" id="auth-submit" type="submit">تسجيل الدخول</button>
@@ -820,6 +804,7 @@
     const authForm = document.querySelector("#auth-form");
     const recoveryForm = document.querySelector("#recovery-form");
     const authEmail = document.querySelector("#auth-email");
+    const authPhone = document.querySelector("#auth-phone");
     const authPassword = document.querySelector("#auth-password");
     const authTitle = document.querySelector("#auth-title");
     const authDescription = document.querySelector("#auth-description");
@@ -828,130 +813,18 @@
     const authAccount = document.querySelector("#auth-account");
     const authActions = document.querySelector("#auth-actions");
     const authSubmit = document.querySelector("#auth-submit");
-    const assistantForm = document.querySelector("#assistant-form");
-    const assistantInput = document.querySelector("#assistant-input");
-    const assistantMessagesElement = document.querySelector("#assistant-messages");
-    const assistantStatus = document.querySelector("#assistant-status");
-    const assistantSend = document.querySelector("#assistant-send");
-    const assistantClear = document.querySelector("#assistant-clear");
-    const assistantWelcome = "مرحبًا! اكتب سؤالك البرمجي، وسأبحث عن معلومات حديثة عندما يفيد ذلك، مع إرفاق المصادر المتاحة.";
-    const assistantHistory = [];
-    let assistantPending = false;
     let authMode = "login";
     let currentSession = null;
-
-    function resetAssistantConversation() {
-      assistantHistory.length = 0;
-      assistantMessagesElement.replaceChildren();
-      const welcome = document.createElement("div");
-      welcome.className = "assistant-message assistant";
-      welcome.textContent = assistantWelcome;
-      assistantMessagesElement.append(welcome);
-      assistantStatus.textContent = "محادثة جديدة. أرسل سؤالك؛ سياق هذه المحادثة يبقى في الصفحة الحالية فقط.";
-      assistantStatus.className = "assistant-note";
-    }
-
-    function addAssistantMessage(role, text, sources = []) {
-      const message = document.createElement("div");
-      message.className = `assistant-message ${role}`;
-      message.textContent = text;
-      if (role === "assistant" && sources.length) {
-        const sourceList = document.createElement("div");
-        sourceList.className = "assistant-sources";
-        sources.forEach(source => {
-          try {
-            const url = new URL(source.url);
-            if (url.protocol !== "https:") return;
-            const link = document.createElement("a");
-            link.href = url.toString();
-            link.target = "_blank";
-            link.rel = "noopener noreferrer";
-            link.textContent = source.title || url.hostname;
-            sourceList.append(link);
-          } catch {
-            return;
-          }
-        });
-        if (sourceList.childElementCount) {
-          const sourceLabel = document.createElement("span");
-          sourceLabel.textContent = "المصادر:";
-          message.append(sourceLabel, sourceList);
-        }
-      }
-      assistantMessagesElement.append(message);
-      assistantMessagesElement.scrollTop = assistantMessagesElement.scrollHeight;
-    }
-
-    assistantForm.addEventListener("submit", async event => {
-      event.preventDefault();
-      const question = assistantInput.value.trim();
-      if (!question || assistantPending) return;
-      if (!supabaseClient) {
-        assistantStatus.textContent = "أعد إعداد Supabase في الصفحة، ثم انشر وظيفة medad-assistant ومفتاح Gemini في الخادم.";
-        assistantStatus.className = "assistant-note error";
-        return;
-      }
-      if (!currentSession?.user) {
-        assistantStatus.textContent = "سجّل الدخول بحسابك لاستخدام المساعد.";
-        assistantStatus.className = "assistant-note error";
-        openAuth("login");
-        return;
-      }
-
-      assistantPending = true;
-      assistantSend.disabled = true;
-      assistantClear.disabled = true;
-      assistantInput.disabled = true;
-      assistantStatus.textContent = "يبحث ويفكّر في إجابة مناسبة…";
-      assistantStatus.className = "assistant-note";
-      addAssistantMessage("user", question);
-      const pending = document.createElement("div");
-      pending.className = "assistant-pending";
-      pending.textContent = "جارٍ إعداد الإجابة…";
-      assistantMessagesElement.append(pending);
-      assistantMessagesElement.scrollTop = assistantMessagesElement.scrollHeight;
-
-      try {
-        const messages = [...assistantHistory.slice(-10), { role: "user", text: question }];
-        const { data, error } = await supabaseClient.functions.invoke("medad-assistant", {
-          body: { messages }
-        });
-        if (error) throw error;
-        if (typeof data?.answer !== "string" || !data.answer.trim()) {
-          throw new Error("وصل رد غير مكتمل من المساعد. حاول مرة أخرى.");
-        }
-        assistantHistory.push({ role: "user", text: question }, {
-          role: "model",
-          text: data.answer
-        });
-        if (assistantHistory.length > 12) assistantHistory.splice(0, assistantHistory.length - 12);
-        pending.remove();
-        addAssistantMessage("assistant", data.answer, Array.isArray(data.sources) ? data.sources : []);
-        assistantInput.value = "";
-        assistantStatus.textContent = "تُرسل آخر رسائل هذه المحادثة فقط إلى Gemini. ابدأ محادثة جديدة لمسح السياق المحلي.";
-        assistantStatus.className = "assistant-note";
-      } catch (error) {
-        pending.remove();
-        console.error("تعذّرت استجابة مساعد مِداد:", error);
-        assistantStatus.textContent = error.message || "تعذّر الاتصال بالمساعد. تحقق من الإعدادات والاتصال ثم حاول مجددًا.";
-        assistantStatus.className = "assistant-note error";
-      } finally {
-        assistantPending = false;
-        assistantSend.disabled = false;
-        assistantClear.disabled = false;
-        assistantInput.disabled = false;
-        assistantInput.focus();
-      }
-    });
-
-    assistantClear.addEventListener("click", () => {
-      if (assistantPending) return;
-      resetAssistantConversation();
-    });
 
     function setAuthStatus(message, state = "") {
       authStatus.textContent = message;
       authStatus.className = `auth-status${state ? ` ${state}` : ""}`;
+    }
+
+    function normalizePhoneNumber(value) {
+      const digits = value.replace(/\s+/g, "").replace(/[()-]/g, "");
+      const cleaned = digits.startsWith("+") ? digits : `+${digits.replace(/^\+/, "")}`;
+      return /^\+\d{8,15}$/.test(cleaned) ? cleaned : "";
     }
 
     function setAuthMode(mode) {
@@ -963,16 +836,22 @@
       authActions.hidden = isRecovery || isAccount;
       authTitle.textContent = mode === "signup" ? "إنشاء حساب" : isRecovery ? "إعادة تعيين كلمة المرور" : isAccount ? "حسابك" : "تسجيل الدخول";
       authDescription.textContent = mode === "signup"
-        ? "أنشئ حسابًا ببريدك الإلكتروني وكلمة مرور."
+        ? "أنشئ حسابًا ببريدك الإلكتروني ورقم هاتفك وكلمة مرور."
         : isRecovery
           ? "اختر كلمة مرور جديدة لحسابك."
           : isAccount
             ? "إدارة جلسة حسابك."
-            : "أدخل بريدك الإلكتروني وكلمة المرور للمتابعة.";
+            : "أدخل بريدك الإلكتروني ورقم هاتفك وكلمة المرور للمتابعة.";
       authSubmit.textContent = mode === "signup" ? "إنشاء الحساب" : "تسجيل الدخول";
       authPassword.autocomplete = mode === "signup" ? "new-password" : "current-password";
       document.querySelector("#auth-mode-toggle").textContent = mode === "signup" ? "لديك حساب؟ سجّل الدخول" : "إنشاء حساب جديد";
       document.querySelector("#forgot-password").hidden = mode === "signup" || isAccount;
+      if (authPhone) {
+        const storedPhone = localStorage.getItem("medad-user-phone");
+        if (storedPhone && !authPhone.value.trim() && mode !== "recovery") {
+          authPhone.value = storedPhone;
+        }
+      }
       setAuthStatus("");
     }
 
@@ -1022,7 +901,18 @@
         return;
       }
       const email = authEmail.value.trim();
+      const phone = normalizePhoneNumber(authPhone.value.trim());
       const password = authPassword.value;
+      if (!email || !phone || !password) {
+        setAuthStatus("يرجى إدخال البريد الإلكتروني ورقم الهاتف وكلمة المرور جميعًا.", "error");
+        if (!phone) authPhone.focus();
+        return;
+      }
+      if (!phone) {
+        setAuthStatus("رقم الهاتف غير صالح. استخدم صيغة مثل +966500000000.", "error");
+        authPhone.focus();
+        return;
+      }
       authSubmit.disabled = true;
       setAuthStatus(authMode === "signup" ? "جارٍ إنشاء الحساب…" : "جارٍ تسجيل الدخول…");
       try {
@@ -1030,9 +920,13 @@
           const { data, error } = await supabaseClient.auth.signUp({
             email,
             password,
-            options: { emailRedirectTo: AUTH_REDIRECT_URL }
+            options: {
+              emailRedirectTo: AUTH_REDIRECT_URL,
+              data: { phone }
+            }
           });
           if (error) throw error;
+          localStorage.setItem("medad-user-phone", phone);
           if (data.session) {
             updateAuthView(data.session);
             authModal.classList.remove("open");
@@ -1043,6 +937,9 @@
         } else {
           const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
           if (error) throw error;
+          const userPhone = data?.user?.user_metadata?.phone || phone;
+          localStorage.setItem("medad-user-phone", userPhone);
+          authPhone.value = userPhone;
           updateAuthView(data.session);
           authModal.classList.remove("open");
           showToast("تم تسجيل الدخول بنجاح.");
