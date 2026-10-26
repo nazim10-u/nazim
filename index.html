@@ -59,6 +59,9 @@
     .button svg { width: 17px; height: 17px; }
     .button-light { color: var(--green-deep); background: white; }
     .button-light:hover { background: #f2f6ed; }
+    .gemalot-link { background: linear-gradient(120deg, #4285f4, #a142f4); white-space: nowrap; }
+    .gemalot-link:hover { background: linear-gradient(120deg, #3478e5, #9133e5); }
+    .gemalot-link svg { width: 19px; height: 19px; }
     .install-button { display: inline-flex; align-items: center; gap: 8px; padding: 9px 13px; border: 1px solid rgba(255,255,255,.35); border-radius: 11px; background: transparent; color: white; font-size: 13px; font-weight: 700; }
     .install-button:hover { background: rgba(255,255,255,.12); }
     .install-button svg { width: 17px; height: 17px; }
@@ -289,6 +292,8 @@
       .nav-actions { gap: 11px; }
       .login-link { display: none; }
       .nav-actions .button { padding: 10px 13px; font-size: 12px; }
+      .gemalot-link { width: 38px; height: 38px; padding: 0; }
+      .gemalot-link span { display: none; }
       .brand { font-size: 20px; }
       .brand-mark { width: 34px; height: 34px; }
       .hero { display: block; min-height: auto; padding: 34px 25px 25px; }
@@ -356,6 +361,10 @@
       <a href="#community">المجتمع</a>
     </nav>
     <div class="nav-actions">
+      <a class="button gemalot-link" href="https://alislamiah.github.io/Gemalot/" target="_blank" rel="noopener noreferrer" aria-label="افتح موقع Gemalot" title="افتح موقع Gemalot">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2.8c1.45 4.85 3.35 6.75 8.2 8.2-4.85 1.45-6.75 3.35-8.2 8.2-1.45-4.85-3.35-6.75-8.2-8.2 4.85-1.45 6.75-3.35 8.2-8.2Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M19 2v4m-2-2h4M5 18v4m-2-2h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span>Gemalot</span>
+      </a>
       <button class="login-link" type="button" data-open-auth data-auth-mode="login">تسجيل الدخول</button>
       <button class="button" data-open-auth data-auth-mode="signup">ابدأ مجانًا</button>
       <button class="menu-toggle" aria-label="فتح القائمة" aria-expanded="false" aria-controls="main-nav">
